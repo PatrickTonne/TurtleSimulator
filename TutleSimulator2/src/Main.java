@@ -18,9 +18,6 @@ public class Main extends Application{
 	public void start(Stage primaryStage) {
 		//Erstes Border Pane Implementierung
 				BorderPane borderpane1 = new BorderPane();
-				
-				
-				//Menu Bar Implementierung
 				MenuBar menuBar = new MenuBar();
 				Menu editorMenu = new Menu("Editor");
 				Menu terriMenu = new Menu("Territorium");
@@ -28,6 +25,9 @@ public class Main extends Application{
 				Menu SimulationMenu = new Menu("Simulation");
 				menuBar.getMenus().addAll(editorMenu, terriMenu, hamsterMenu,SimulationMenu);
 				borderpane1.setTop(menuBar);
+				
+				//Menu Bar Implementierung
+				
 				
 				//Zweites Border Pane Implementierung
 				
@@ -45,11 +45,15 @@ public class Main extends Application{
 				
 				
 				
-				
 				primaryStage.setScene(new Scene(borderpane1, 600, 600));
 
 				primaryStage.show();
 		
+	}
+	
+	
+	public void addMenu() {
+
 	}
 		
 
