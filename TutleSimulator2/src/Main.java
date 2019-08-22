@@ -1,13 +1,4 @@
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
+import 
 public class Main extends Application{
 
 	public static void main(String[] args) {
@@ -36,7 +27,7 @@ public class Main extends Application{
 				VBox toolBox = new VBox();
 				Button button1 = new Button();
 				button1.setPrefSize(200, 200);
-				button1.setMaxWidth(10000);
+				button1.setMaxWidth(1000);
 				toolBox.getChildren().addAll(button1);
 				
 				borderpane2.setTop(toolBox);
