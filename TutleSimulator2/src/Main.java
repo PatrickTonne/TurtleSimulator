@@ -36,7 +36,7 @@ public class Main extends Application{
 				VBox toolBox = new VBox();
 				Button button1 = new Button();
 				button1.setPrefSize(200, 200);
-				button1.setMaxWidth(1000);
+				button1.setMaxWidth(10000);
 				toolBox.getChildren().addAll(button1);
 				
 				borderpane2.setTop(toolBox);
