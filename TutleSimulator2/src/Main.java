@@ -28,9 +28,22 @@ public class Main extends Application{
 				
 				Menu editorMenu = new Menu("Editor");
 				MenuItem neuItem = new MenuItem("Neu");
+				Image neuIcon = new Image(getClass().getResourceAsStream("media/New16.gif"));
+				ImageView neuView = new ImageView(neuIcon);
+				neuItem.setGraphic(neuView);
+				
 				MenuItem öffnenItem = new MenuItem("Öffnen");
+				Image öffnenIcon = new Image(getClass().getResourceAsStream("media/Open16.gif"));
+				ImageView öffnenView = new ImageView(öffnenIcon);
+				öffnenItem.setGraphic(öffnenView);
+				
 				MenuItem kompilierenItem = new MenuItem("Kompilieren");
+				
 				MenuItem druckenItem = new MenuItem("Drucken");
+				Image druckenIcon = new Image(getClass().getResourceAsStream("media/Print16.gif"));
+				ImageView druckenView = new ImageView(druckenIcon);
+				druckenItem.setGraphic(druckenView);
+				
 				MenuItem beendenItem = new MenuItem("Beenden");
 				editorMenu.getItems().addAll(neuItem, öffnenItem, new SeparatorMenuItem(),kompilierenItem, druckenItem, new SeparatorMenuItem(),beendenItem);
 				
@@ -57,11 +70,27 @@ public class Main extends Application{
 				salatPlazierenMenuItem, MauerPlazierenMenuItem, kachelLöschenMenuItem);
 				
 				
-				Menu hamsterMenu = new Menu("Hamster");
+				Menu schildkröteMenu = new Menu("Schuldkröte");
 				
+				MenuItem salatImMundItem = new MenuItem("Salat im Mund");
+				MenuItem linksUmItem = new MenuItem("linksUm");
+				MenuItem vorItem = new MenuItem("vor");
+				MenuItem nimmItem= new MenuItem("nimm");
+				MenuItem gibItem = new MenuItem("gib");
 				
+				schildkröteMenu.getItems().addAll(salatImMundItem, linksUmItem, vorItem, nimmItem, gibItem);
+			
 				Menu SimulationMenu = new Menu("Simulation");
-				menuBar.getMenus().addAll(editorMenu, terriMenu, hamsterMenu,SimulationMenu);
+				
+				MenuItem startItem = new MenuItem("Start/Fortsetzen");
+				MenuItem pauseItem = new MenuItem("Pause");
+				MenuItem stopItem = new  MenuItem("Stopp");
+				
+				SimulationMenu.getItems().addAll(startItem, pauseItem, stopItem);
+				
+				
+				
+				menuBar.getMenus().addAll(editorMenu, terriMenu, schildkröteMenu,SimulationMenu);
 				borderpane1.setTop(menuBar);
 				
 				//Menu Bar Implementierung
