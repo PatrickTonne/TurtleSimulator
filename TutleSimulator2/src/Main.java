@@ -33,14 +33,14 @@ public class Main extends Application{
 	}
 	
 	public void start(Stage primaryStage) {
-		//Erstes Border Pane Implementierung
+		
+		//BorderPane in BorderPane wird erstellt. Menü wird eingefügt.
 
 		BorderPane borderpane1 = addMenu();	
 				
-				
 		BorderPane borderpane2 = new BorderPane();
 
-		
+		//Toolbar, SplitPane und Label wird eingefügt.
 		borderpane2.setTop(addToolBar());
 		borderpane2.setCenter(addSplitPane());
 		borderpane2.setBottom(addLabel());
@@ -52,6 +52,7 @@ public class Main extends Application{
 		
 	}
 	
+	//Klasse zur Erstellung des Menüs.
 	
 	public BorderPane addMenu() {
 
@@ -94,22 +95,22 @@ public class Main extends Application{
 		
 		ToggleGroup terriToggleGroup = new ToggleGroup();
 		
-		RadioMenuItem hamsterPlazierenMenuItem = new RadioMenuItem("_Schildkröte plazieren");
-		hamsterPlazierenMenuItem.setToggleGroup(terriToggleGroup);
-		RadioMenuItem kornPlazierenMenuItem = new RadioMenuItem("_Salat plazieren");
-		kornPlazierenMenuItem.setToggleGroup(terriToggleGroup);
+		RadioMenuItem turtlePlazierenMenuItem = new RadioMenuItem("_Schildkröte plazieren");
+		turtlePlazierenMenuItem.setToggleGroup(terriToggleGroup);
+		RadioMenuItem salatPlazierenMenuItem = new RadioMenuItem("_Salat plazieren");
+		salatPlazierenMenuItem.setToggleGroup(terriToggleGroup);
 		RadioMenuItem MauerPlazierenMenuItem = new RadioMenuItem("_Mauer plazieren");
 		MauerPlazierenMenuItem.setToggleGroup(terriToggleGroup);
 		RadioMenuItem kachelLöschenMenuItem = new RadioMenuItem("_Kachel löschen");
 		kachelLöschenMenuItem.setToggleGroup(terriToggleGroup);
 		
-		terriMenu.getItems().addAll(SpeichernItem, LadenItem, bildSpeichernItem, druckenItem2, gößeändernItem, new SeparatorMenuItem(), hamsterPlazierenMenuItem,
-		kornPlazierenMenuItem, MauerPlazierenMenuItem, kachelLöschenMenuItem);
+		terriMenu.getItems().addAll(SpeichernItem, LadenItem, bildSpeichernItem, druckenItem2, gößeändernItem, new SeparatorMenuItem(), turtlePlazierenMenuItem,
+		salatPlazierenMenuItem, MauerPlazierenMenuItem, kachelLöschenMenuItem);
 		
 		
-		Menu schildkröteMenu = new Menu("_Hamster");
+		Menu schildkröteMenu = new Menu("_Schildkröte");
 		
-		MenuItem salatImMundItem = new MenuItem("Körner im Maul");
+		MenuItem salatImMundItem = new MenuItem("Salat im Maul");
 		MenuItem linksUmItem = new MenuItem("linksUm");
 		linksUmItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+SHIFT+L"));
 		MenuItem vorItem = new MenuItem("vor");
@@ -150,7 +151,7 @@ public class Main extends Application{
 		
 
 	}
-		
+		//Klasse zum Erstellen der Toolbar.
 
 	public ToolBar addToolBar() {
 		ToolBar toolbar = new ToolBar();
@@ -184,17 +185,17 @@ public class Main extends Application{
 		terrainButton.setGraphic(terrainView);
 		terrainButton.setTooltip(new Tooltip("Terrain ändern."));
 		
-		Button hamsterButton = new Button();
-		Image hamsterIcon = new Image(getClass().getResourceAsStream("media/Hamster24.png"));
-		ImageView hamsterView = new ImageView(hamsterIcon);
-		hamsterButton.setGraphic(hamsterView);
-		hamsterButton.setTooltip(new Tooltip("Hamster bewegen."));
+		Button turtleButton = new Button();
+		Image turtleIcon = new Image(getClass().getResourceAsStream("media/Turtle24.png"));
+		ImageView turtleView = new ImageView(turtleIcon);
+		turtleButton.setGraphic(turtleView);
+		turtleButton.setTooltip(new Tooltip("Schildkröte bewegen."));
 		
-		Button kornButton = new Button();
-		Image kornIcon = new Image(getClass().getResourceAsStream("media/Corn24.gif"));
-		ImageView kornView = new ImageView(kornIcon);
-		kornButton.setGraphic(kornView);
-		kornButton.setTooltip(new Tooltip("Korn plazieren."));
+		Button salatButton = new Button();
+		Image salatIcon = new Image(getClass().getResourceAsStream("media/Salat24.gif"));
+		ImageView salatView = new ImageView(salatIcon);
+		salatButton.setGraphic(salatView);
+		salatButton.setTooltip(new Tooltip("Salatkopf plazieren."));
 		
 		Button mauerButton = new Button();
 		Image mauerIcon = new Image(getClass().getResourceAsStream("media/Wall24.gif"));
@@ -208,35 +209,35 @@ public class Main extends Application{
 		deleteButton.setGraphic(deleteView);
 		deleteButton.setTooltip(new Tooltip("Löschen."));
 		
-		Button hamsterCornButton = new Button();
-		Image hamsterCornIcon = new Image(getClass().getResourceAsStream("media/HamsterCorn24.png"));
-		ImageView hamsterCornView = new ImageView(hamsterCornIcon);
-		hamsterCornButton.setGraphic(hamsterCornView);
-		hamsterCornButton.setTooltip(new Tooltip("Hamster mit Korn"));
+		Button turtleSalatButton = new Button();
+		Image turtleSalatIcon = new Image(getClass().getResourceAsStream("media/TurtleSalat24.png"));
+		ImageView turtleSalatView = new ImageView(turtleSalatIcon);
+		turtleSalatButton.setGraphic(turtleSalatView);
+		turtleSalatButton.setTooltip(new Tooltip("Schildkröte mit Salat"));
 		
-		Button hamsterLeftButton = new Button();
-		Image hamsterLeftIcon = new Image(getClass().getResourceAsStream("media/HamsterLeft24.png"));
-		ImageView hamsterLeftView = new ImageView(hamsterLeftIcon);
-		hamsterLeftButton.setGraphic(hamsterLeftView);
-		hamsterLeftButton.setTooltip(new Tooltip("Hamster naczh links drehen."));
+		Button turtleLeftButton = new Button();
+		Image turtleLeftIcon = new Image(getClass().getResourceAsStream("media/TurtleLeft24.png"));
+		ImageView turtleLeftView = new ImageView(turtleLeftIcon);
+		turtleLeftButton.setGraphic(turtleLeftView);
+		turtleLeftButton.setTooltip(new Tooltip("Schildkröte nach links drehen."));
 		
-		Button hamsterMoveButton = new Button();
-		Image hamsterMoveIcon = new Image(getClass().getResourceAsStream("media/HamsterMove24.png"));
-		ImageView hamsterMoveView = new ImageView(hamsterMoveIcon);
-		hamsterMoveButton.setGraphic(hamsterMoveView);
-		hamsterMoveButton.setTooltip(new Tooltip("Hamster bewegen"));
+		Button turtleMoveButton = new Button();
+		Image turtleMoveIcon = new Image(getClass().getResourceAsStream("media/TurtleMove24.png"));
+		ImageView turtleMoveView = new ImageView(turtleMoveIcon);
+		turtleMoveButton.setGraphic(turtleMoveView);
+		turtleMoveButton.setTooltip(new Tooltip("Schildkröte bewegen"));
 		
-		Button hamsterPickButton = new Button();
-		Image hamsterPickIcon = new Image(getClass().getResourceAsStream("media/HamsterPick24.png"));
-		ImageView hamsterPickView = new ImageView(hamsterPickIcon);
-		hamsterPickButton.setGraphic(hamsterPickView);
-		hamsterPickButton.setTooltip(new Tooltip("Korn aufnehmen."));
+		Button turtlePickButton = new Button();
+		Image turtlePickIcon = new Image(getClass().getResourceAsStream("media/TurtlePick24.png"));
+		ImageView turtlePickView = new ImageView(turtlePickIcon);
+		turtlePickButton.setGraphic(turtlePickView);
+		turtlePickButton.setTooltip(new Tooltip("Salat aufnehmen."));
 		
-		Button hamsterPutButton = new Button();
-		Image hamsterPutIcon = new Image(getClass().getResourceAsStream("media/HamsterPut24.png"));
-		ImageView hamsterPutView = new ImageView(hamsterPutIcon);
-		hamsterPutButton.setGraphic(hamsterPutView);
-		hamsterPutButton.setTooltip(new Tooltip("Korn abgeben."));
+		Button turtlePutButton = new Button();
+		Image turtlePutIcon = new Image(getClass().getResourceAsStream("media/TurtlePut24.png"));
+		ImageView turtlePutView = new ImageView(turtlePutIcon);
+		turtlePutButton.setGraphic(turtlePutView);
+		turtlePutButton.setTooltip(new Tooltip("Salat abgeben."));
 		
 		Button playButton = new Button();
 		Image playIcon = new Image(getClass().getResourceAsStream("media/Play24.gif"));
@@ -261,8 +262,8 @@ public class Main extends Application{
 		tickRateSlider.setTooltip(new Tooltip("Geschwindigkeit einstellen."));
 		
 		
-		toolbar = new ToolBar(neuButton, öffnenButton, new Separator(), sichernButton, compileButton, new Separator(),terrainButton, hamsterButton, kornButton, mauerButton, deleteButton, new Separator(), hamsterCornButton,
-				hamsterLeftButton, hamsterMoveButton, hamsterPickButton, hamsterPutButton, new Separator(), playButton, pauseButton, stopButton, new Separator(), tickRateSlider);
+		toolbar = new ToolBar(neuButton, öffnenButton, new Separator(), sichernButton, compileButton, new Separator(),terrainButton, turtleButton, salatButton, mauerButton, deleteButton, new Separator(), turtleSalatButton,
+				turtleLeftButton, turtleMoveButton, turtlePickButton, turtlePutButton, new Separator(), playButton, pauseButton, stopButton, new Separator(), tickRateSlider);
 
 		
 		
@@ -270,6 +271,8 @@ public class Main extends Application{
 		
 		return toolbar;
 	}
+	
+	//Klasse zur Erstellung der Splitpane
 
 	public SplitPane addSplitPane() {
 
@@ -281,6 +284,7 @@ public class Main extends Application{
 		return splitPane;
 	}
 
+	//Klasse zur Erstellung des Labels.
 	public Label addLabel() {
 		Label statusLabel = new Label("Statusmeldung");
 		
