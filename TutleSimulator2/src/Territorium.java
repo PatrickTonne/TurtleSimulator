@@ -56,13 +56,13 @@ public class Territorium {
 		return turtleYPos;
 	}
 
-	public void moveTurtle() throws OutOfTerritoryException, WandException {
+	public void moveTurtle() throws OutOfTerritoryException, WallException {
 		switch (this.turtleDirection) {
 		case (north):
 			if (isInTerri(turtleXPos, turtleYPos - 1) == false) {
 				throw new OutOfTerritoryException();
 			} else if (isWall(turtleXPos, turtleYPos - 1) == true) {
-				throw new WandException();
+				throw new WallException();
 			} else {
 				this.turtleYPos--;
 			}
@@ -71,7 +71,7 @@ public class Territorium {
 			if (isInTerri(turtleXPos - 1, turtleYPos) == false) {
 				throw new OutOfTerritoryException();
 			} else if (isWall(turtleXPos - 1, turtleYPos) == true) {
-				throw new WandException();
+				throw new WallException();
 			} else {
 				this.turtleXPos--;
 			}
@@ -80,7 +80,7 @@ public class Territorium {
 			if (isInTerri(turtleXPos, turtleYPos + 1) == false) {
 				throw new OutOfTerritoryException();
 			} else if (isWall(turtleXPos, turtleYPos + 1) == true) {
-				throw new WandException();
+				throw new WallException();
 			} else {
 				this.turtleYPos++;
 			}
@@ -89,7 +89,7 @@ public class Territorium {
 			if (isInTerri(turtleXPos + 1, turtleYPos) == false) {
 				throw new OutOfTerritoryException();
 			} else if (isWall(turtleXPos + 1, turtleYPos) == true) {
-				throw new WandException();
+				throw new WallException();
 			} else {
 				this.turtleXPos++;
 			}
@@ -152,11 +152,11 @@ public class Territorium {
 
 	}
 
-	public void setSalat(int x, int y) throws OutOfTerritoryException, WandException {
+	public void setSalat(int x, int y) throws OutOfTerritoryException, WallException {
 		if (isInTerri(x, y) == false) {
 			throw new OutOfTerritoryException();
 		} else if (isWall(x, y) == true) {
-			throw new WandException();
+			throw new WallException();
 		} else {
 			playGround[y][x]++;
 		}
