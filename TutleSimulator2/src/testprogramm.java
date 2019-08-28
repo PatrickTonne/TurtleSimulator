@@ -8,7 +8,7 @@ public class testprogramm {
 		Turtle turtle1 = new Turtle();
 		int move = 0;
 
-		Territorium terri1 = new Territorium(turtle1);
+		Territorium terri1 = new Territorium();
 		terri1.setWall(0, 1);
 		terri1.setWall(0, 1);
 		terri1.setSalat(0, 2);

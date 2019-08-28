@@ -21,16 +21,13 @@ public class Territorium {
 	int[][] playGround = new int[YSize][XSize]; // -1 = WALL, 0 = Leer, >0 Anzahl an Salatköpfen auf dem Feld.
 
 	// Turtle Attribute
-	private Turtle turtle;
+	private Turtle turtle = new Turtle();
 	private int turtleXPos = 0;
 	int turtleYPos = 0;
 	private int turtleDirection = west;
 	private int salatCounter = 0;
 
 	// Konstruktor
-	Territorium(Turtle turtleIn) {
-
-	}
 
 	public int getXSize() {
 		return XSize;
@@ -175,16 +172,16 @@ public class Territorium {
 		if (this.playGround[turtleYPos][turtleXPos] <= 0) {
 			throw new noSalatOnFieldException();
 		} else {
-			this.salatCounter++;
+			this.turtle.salatCount++;
 			this.playGround[turtleYPos][turtleXPos]--;
 		}
 	}
 
 	public void turtleDrop() throws noSalatInMouthException {
-		if (this.salatCounter <= 0) {
+		if (this.turtle.salatCount<= 0) {
 			throw new noSalatInMouthException();
 		} else {
-			this.salatCounter--;
+			this.turtle.salatCount--;
 			this.playGround[this.turtleYPos][this.turtleXPos]++;
 		}
 	}
