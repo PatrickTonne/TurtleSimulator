@@ -5,10 +5,10 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 public class Territorium {
 	// Größe des Spielfelds
 	final int startCols = 10;
-	final int startRows = 12;
+	final int startRows = 30;
 
-	int XSize = startCols;
-	int YSize = startRows;
+	int XSize = startRows;
+	int YSize = startCols;
 
 	// Direction-Möglichkeiten
 	final int north = 0;
@@ -18,23 +18,18 @@ public class Territorium {
 
 	final int wall = -1;
 
-	int[][] playGround; // -1 = WALL, 0 = Leer, >0 Anzahl an Salatköpfen auf dem Feld.
+	int[][] playGround = new int[YSize][XSize]; // -1 = WALL, 0 = Leer, >0 Anzahl an Salatköpfen auf dem Feld.
 
 	// Turtle Attribute
 	private Turtle turtle;
 	private int turtleXPos = 0;
-	private int turtleYPos = 0;
+	int turtleYPos = 0;
 	private int turtleDirection = west;
 	private int salatCounter = 0;
 
 	// Konstruktor
-	Territorium() {
-		for (int i = 0; i < XSize; i++) {
-			for (int x = 0; x < YSize; x++) {
-				playGround[i][x] = 0;
-			}
+	Territorium(Turtle turtleIn) {
 
-		}
 	}
 
 	public int getXSize() {
@@ -102,7 +97,7 @@ public class Territorium {
 		}
 	}
 
-	// Hilfmethoden
+	// Hilfmethode: Ist das Feld im Territorium?
 
 	private boolean isInTerri(int x, int y) {
 		if (x < 0 || x > this.XSize || y < 0 || y > this.YSize) {
@@ -113,8 +108,9 @@ public class Territorium {
 
 	}
 
+// Hilfsmethode: Ist das Feld eine Wand?
 	private boolean isWall(int x, int y) {
-		if (playGround[x][y] == wall) {
+		if (playGround[y][x] == wall) {
 			return true;
 		} else {
 			return false;
@@ -138,35 +134,58 @@ public class Territorium {
 		return salatCounter;
 	}
 
-	public void addSalatCounter() {
-		this.salatCounter = this.salatCounter + 1;
-	}
-
-	public void takeSalatCounter() {
-		this.salatCounter = this.salatCounter - 1;
-	}
-
-	final private void setPlayGround(int[][] playGround) {
-		this.playGround = playGround;
+	public void turtleRight() {
+		if (turtleDirection == west) {
+			this.turtleDirection = north;
+		} else {
+			this.turtleDirection++;
+		}
 	}
 
 	public void setWall(int x, int y) throws OutOfTerritoryException {
 		if (isInTerri(x, y) == true) {
-			this.playGround[x][y] = wall;
+			this.playGround[y][x] = wall;
 		} else {
 			throw new OutOfTerritoryException();
 
 		}
 
 	}
-	public void setSalat(int x, int y) throws OutOfTerritoryException,WandException{
+
+	public void setSalat(int x, int y) throws OutOfTerritoryException, WandException {
 		if (isInTerri(x, y) == false) {
 			throw new OutOfTerritoryException();
 		} else if (isWall(x, y) == true) {
 			throw new WandException();
-		}else {
-			playGround[x][y]++; 
+		} else {
+			playGround[y][x]++;
 		}
-		
+
+	}
+
+	public int[][] getPlayGround() {
+		return playGround;
+	}
+
+	public void setTurtleXPos() {
+		this.turtleYPos = this.turtleYPos - 1;
+	}
+
+	public void turtleTake() throws noSalatOnFieldException {
+		if (this.playGround[turtleYPos][turtleXPos] <= 0) {
+			throw new noSalatOnFieldException();
+		} else {
+			this.salatCounter++;
+			this.playGround[turtleYPos][turtleXPos]--;
+		}
+	}
+
+	public void turtleDrop() throws noSalatInMouthException {
+		if (this.salatCounter <= 0) {
+			throw new noSalatInMouthException();
+		} else {
+			this.salatCounter--;
+			this.playGround[this.turtleYPos][this.turtleXPos]++;
+		}
 	}
 }
