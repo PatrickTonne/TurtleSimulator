@@ -13,10 +13,11 @@ public class testprogramm {
 		terri1.setWall(0, 1);
 		terri1.setSalat(0, 2);
 		terri1.setSalat(6, 5);
+		terri1.setSalat(6, 5);
+		terri1.setSalat(6, 5);
 
 		terri1.setTurtlePos(6, 6);
 		terri1.setTurtleDirection(0);
-		int z = 0;
 
 		do {
 			for (int x = 0; x < terri1.YSize; x++) {
@@ -31,7 +32,7 @@ public class testprogramm {
 				System.out.println();
 			}
 			System.out.println();
-			move = IO.readInt("rechts0Um =0,vor = 1, Salat nehemen = 2, Salat hinlegen =3");
+			move = IO.readInt("rechtsUm = 0,vor = 1, Salat nehemen = 2, Salat hinlegen =3");
 
 			if (move == 0) {
 				terri1.turtleRight();

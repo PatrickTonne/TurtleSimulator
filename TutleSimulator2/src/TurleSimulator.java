@@ -1,12 +1,15 @@
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Slider;
@@ -274,10 +277,14 @@ public class TurleSimulator extends Application{
 
 	public SplitPane addSplitPane() {
 
+		Territorium terri1 = new Territorium();
 		
 		SplitPane splitPane = new SplitPane();
 		splitPane.getItems().add(new TextArea());
-		splitPane.getItems().add(new StackPane(new Label("Test")));
+		ScrollPane sp1 = new ScrollPane();
+		TerriPanel tp1 = new TerriPanel(terri1);
+		sp1.setContent(tp1.getCanvas());
+		splitPane.getItems().add(sp1);
 		
 		return splitPane;
 	}
