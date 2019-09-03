@@ -5,7 +5,6 @@ import com.sun.javafx.iio.ios.IosDescriptor;
 public class testprogramm {
 
 	public static void main(String[] args) {
-		Turtle turtle1 = new Turtle();
 		int move = 0;
 
 		Territorium terri1 = new Territorium();
