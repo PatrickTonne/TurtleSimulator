@@ -24,7 +24,7 @@ public class Territorium {
 	private Turtle turtle = new Turtle(this);
 	private int turtleXPos = 0;
 	int turtleYPos = 0;
-	private int turtleDirection = west;
+	private int turtleDirection =1;
 	private int salatCounter = 0;
 
 	// Konstruktor

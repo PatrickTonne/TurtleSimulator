@@ -282,7 +282,8 @@ public class TurleSimulator extends Application{
 		SplitPane splitPane = new SplitPane();
 		splitPane.getItems().add(new TextArea());
 		ScrollPane sp1 = new ScrollPane();
-		TerriPanel tp1 = new TerriPanel(terri1);
+		TerriPanel tp1 = new TerriPanel(terri1, sp1);
+		
 		sp1.setContent(tp1.getCanvas());
 		splitPane.getItems().add(sp1);
 		
