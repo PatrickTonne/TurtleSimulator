@@ -280,12 +280,12 @@ public class TurleSimulator extends Application{
 		Territorium terri1 = new Territorium();
 		
 		SplitPane splitPane = new SplitPane();
-		splitPane.getItems().add(new TextArea());
+		TextArea codeEditor = new TextArea();
 		ScrollPane sp1 = new ScrollPane();
 		TerriPanel tp1 = new TerriPanel(terri1, sp1);
 		
 		sp1.setContent(tp1.getCanvas());
-		splitPane.getItems().add(sp1);
+		splitPane.getItems().addAll(codeEditor,sp1);
 		
 		return splitPane;
 	}

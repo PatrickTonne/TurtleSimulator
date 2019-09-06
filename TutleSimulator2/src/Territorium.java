@@ -4,11 +4,11 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 
 public class Territorium {
 	// Größe des Spielfelds
-	final int startCols = 10;
-	final int startRows = 30;
+	final int startCols = 15;
+	final int startRows = 25;
 
-	int XSize = startRows;
-	int YSize = startCols;
+	int XSize = startCols;
+	int YSize = startRows;
 
 	// Direction-Möglichkeiten
 	final int north = 0;

@@ -27,7 +27,7 @@ public class TerriPanel extends Region {
 		terri1 = ter;
 		loadImages();
 		this.canvasWidth = ter.XSize * 34 + 2;
-		this.canvasHeight = ter.YSize * 34 + 2;
+		this.canvasHeight = (ter.YSize * 34);
 
 		this.canvas1 = new Canvas(canvasWidth, canvasHeight);
 		GraphicsContext gc = canvas1.getGraphicsContext2D();
