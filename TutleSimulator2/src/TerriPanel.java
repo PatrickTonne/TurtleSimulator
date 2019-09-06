@@ -27,7 +27,7 @@ public class TerriPanel extends Region {
 		terri1 = ter;
 		loadImages();
 		this.canvasWidth = ter.XSize * 34 + 2;
-		this.canvasHeight = (ter.YSize * 34);
+		this.canvasHeight = (ter.YSize * 24);
 
 		this.canvas1 = new Canvas(canvasWidth, canvasHeight);
 		GraphicsContext gc = canvas1.getGraphicsContext2D();
@@ -75,10 +75,17 @@ public class TerriPanel extends Region {
 				gc1.setStroke(Color.BLACK);
 				gc1.strokeRect(2 + (x * 34), 2 + (y * 34), 34, 34);
 				gc1.fillRect(2 + (x * 34), 2 + (y * 34), 34, 34);
-
+				//Hintergrund wird gezeichnet
 				if (terri1.playGround[x][y] == -1) {
 					gc1.drawImage(wallImage, 2 + (x * 34), 2 + (y * 34), 34, 34);
 				}
+				//Salat wird mit entsprechender Anzahl angezeigt.
+				if (terri1.playGround[x][y] > 0) {
+					gc1.drawImage(salatImage, 2 + (x * 34), 2 + (y * 34), 34, 34);
+					gc1.strokeText(String.valueOf(terri1.playGround[x][y]), 2 + (x * 34)+24, 2 + (y * 34)+30);
+				}
+				
+				//Turtle guckt in die entsprechende Richtung
 				if (terri1.getTurtleXPos() == y && terri1.getTurtleYPos() == x) {
 					switch (terri1.getTurtleDirection()) {
 					case 0:
@@ -96,9 +103,7 @@ public class TerriPanel extends Region {
 					}
 
 				}
-				if (terri1.playGround[x][y] > 0) {
-					gc1.drawImage(salatImage, 2 + (x * 34), 2 + (y * 34), 34, 34);
-				}
+
 
 			}
 		}
