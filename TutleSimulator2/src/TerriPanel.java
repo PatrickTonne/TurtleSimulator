@@ -16,6 +16,8 @@ public class TerriPanel extends Region {
 	private int canvasWidth;
 	private int canvasHeight;
 	
+	private int gap = 1;
+		
 	private Image wallImage;
 	private Image turtleNORTHImage;
 	private Image turtleEASTImage;
@@ -26,17 +28,15 @@ public class TerriPanel extends Region {
 	public TerriPanel(Territorium ter, ScrollPane sp1) {
 		terri1 = ter;
 		loadImages();
-		this.canvasWidth = ter.XSize * 34 + 2;
-		this.canvasHeight = (ter.YSize * 24);
-
-		this.canvas1 = new Canvas(canvasWidth, canvasHeight);
+		this.canvasWidth = ter.YSize * 34 + gap;
+		this.canvasHeight = ter.XSize * 34 + gap;
+		
+		this.canvas1 = new Canvas(canvasHeight, canvasWidth);
 		GraphicsContext gc = canvas1.getGraphicsContext2D();
 		
-		terri1.setWall(2, 2);
-		terri1.setTurtlePos(6, 6);
-		terri1.setSalat(7, 7);
-		terri1.setSalat(7, 7);
-		terri1.setSalat(7, 7);
+		//Spielfeld wird aufgebaut
+		setPlayGround();
+		
 		drawCanvas(gc, ter);
 		
 		this.center(sp1.getViewportBounds(), this.canvas1);
@@ -73,41 +73,48 @@ public class TerriPanel extends Region {
 			for (int y = 0; y < terri1.XSize; y++) {
 				gc1.setFill(Color.LIGHTGREY);
 				gc1.setStroke(Color.BLACK);
-				gc1.strokeRect(2 + (x * 34), 2 + (y * 34), 34, 34);
-				gc1.fillRect(2 + (x * 34), 2 + (y * 34), 34, 34);
+				gc1.strokeRect(gap + (x * 34), gap + (y * 34), 34, 34);
+				gc1.fillRect(gap + (x * 34), gap + (y * 34), 34, 34);
 				//Hintergrund wird gezeichnet
 				if (terri1.playGround[x][y] == -1) {
-					gc1.drawImage(wallImage, 2 + (x * 34), 2 + (y * 34), 34, 34);
+					gc1.drawImage(wallImage, gap + (x * 34), gap + (y * 34), 34, 34);
 				}
 				//Salat wird mit entsprechender Anzahl angezeigt.
 				if (terri1.playGround[x][y] > 0) {
-					gc1.drawImage(salatImage, 2 + (x * 34), 2 + (y * 34), 34, 34);
-					gc1.strokeText(String.valueOf(terri1.playGround[x][y]), 2 + (x * 34)+24, 2 + (y * 34)+30);
+					gc1.drawImage(salatImage, gap + (x * 34), gap + (y * 34), 34, 34);
+					gc1.strokeText(String.valueOf(terri1.playGround[x][y]), gap + (x * 34)+24, gap + (y * 34)+30);
 				}
 				
 				//Turtle guckt in die entsprechende Richtung
 				if (terri1.getTurtleXPos() == y && terri1.getTurtleYPos() == x) {
 					switch (terri1.getTurtleDirection()) {
 					case 0:
-						gc1.drawImage(turtleNORTHImage, 2 + (x * 34), 2 + (y * 34), 34, 34);
+						gc1.drawImage(turtleNORTHImage, gap + (x * 34), gap + (y * 34), 34, 34);
 						break;
 					case 1:
-						gc1.drawImage(turtleEASTImage, 2 + (x * 34), 2 + (y * 34), 34, 34);
+						gc1.drawImage(turtleEASTImage, gap + (x * 34), gap + (y * 34), 34, 34);
 						break;
 					case 2:
-						gc1.drawImage(turtleSOUTHImage, 2 + (x * 34), 2 + (y * 34), 34, 34);
+						gc1.drawImage(turtleSOUTHImage, gap + (x * 34), gap + (y * 34), 34, 34);
 						break;
 					case 3:
-						gc1.drawImage(turtleWESTImage, 2 + (x * 34), 2 + (y * 34), 34, 34);
+						gc1.drawImage(turtleWESTImage, gap + (x * 34), gap + (y * 34), 34, 34);
 						break;
 					}
 
 				}
 
-
 			}
 		}
 
+	}
+	
+	private void setPlayGround() {
+		terri1.setWall(2, 2);
+		terri1.setTurtlePos(6, 6);
+		terri1.setSalat(7, 7);
+		terri1.setSalat(7, 7);
+		
 	}
 
 	private void loadImages() {
