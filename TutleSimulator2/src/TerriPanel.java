@@ -31,7 +31,7 @@ public class TerriPanel extends Region {
 		this.canvasWidth = ter.YSize * 34 + gap;
 		this.canvasHeight = ter.XSize * 34 + gap;
 		
-		this.canvas1 = new Canvas(canvasHeight, canvasWidth);
+		this.canvas1 = new Canvas(this.canvasWidth +gap, this.canvasHeight+gap);
 		GraphicsContext gc = canvas1.getGraphicsContext2D();
 		
 		//Spielfeld wird aufgebaut
