@@ -1,5 +1,7 @@
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -15,6 +17,7 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
@@ -26,12 +29,40 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class TurleSimulator extends Application{
+public class TurtleSimulator extends Application{
 
 	public static void main(String[] args) {
 		launch(args);
 
 	}
+	
+	public int choosenItem = 0;
+	
+	public int getChoosenItem() {
+		return choosenItem;
+	}
+
+	public void setChoosenItem(int choosenItem) {
+		this.choosenItem = choosenItem;
+	}
+
+	int turtle = 0;
+	int salat = 1;
+	int wall = 2;
+	int delete =3;
+	
+	private Button terrainButton;
+	private ToggleButton turtleButton;
+	private ToggleButton salatButton;
+	private ToggleButton mauerButton;
+	private ToggleButton deleteButton;
+	
+	private RadioMenuItem turtlePlazierenMenuItem;
+	private RadioMenuItem salatPlazierenMenuItem;
+	private RadioMenuItem MauerPlazierenMenuItem;
+	private RadioMenuItem kachelLöschenMenuItem;
+	
+	
 	
 	public void start(Stage primaryStage) {
 		
@@ -96,14 +127,51 @@ public class TurleSimulator extends Application{
 		
 		ToggleGroup terriToggleGroup = new ToggleGroup();
 		
-		RadioMenuItem turtlePlazierenMenuItem = new RadioMenuItem("_Schildkröte plazieren");
+		turtlePlazierenMenuItem = new RadioMenuItem("_Schildkröte plazieren");
 		turtlePlazierenMenuItem.setToggleGroup(terriToggleGroup);
-		RadioMenuItem salatPlazierenMenuItem = new RadioMenuItem("_Salat plazieren");
+		turtlePlazierenMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				choosenItem = turtle;
+				turtleButton.setSelected(true);
+				
+			}
+		});
+		
+		salatPlazierenMenuItem = new RadioMenuItem("_Salat plazieren");
 		salatPlazierenMenuItem.setToggleGroup(terriToggleGroup);
-		RadioMenuItem MauerPlazierenMenuItem = new RadioMenuItem("_Mauer plazieren");
+		salatPlazierenMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				choosenItem = salat;
+				salatButton.setSelected(true);
+				
+			}
+		});
+		MauerPlazierenMenuItem = new RadioMenuItem("_Mauer plazieren");
 		MauerPlazierenMenuItem.setToggleGroup(terriToggleGroup);
-		RadioMenuItem kachelLöschenMenuItem = new RadioMenuItem("_Kachel löschen");
+		MauerPlazierenMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				choosenItem = wall;
+				mauerButton.setSelected(true);
+				
+			}
+		});
+		kachelLöschenMenuItem = new RadioMenuItem("_Kachel löschen");
 		kachelLöschenMenuItem.setToggleGroup(terriToggleGroup);
+		kachelLöschenMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				choosenItem = delete;
+				deleteButton.setSelected(true);
+				
+			}
+		});
 		
 		terriMenu.getItems().addAll(SpeichernItem, LadenItem, bildSpeichernItem, druckenItem2, gößeändernItem, new SeparatorMenuItem(), turtlePlazierenMenuItem,
 		salatPlazierenMenuItem, MauerPlazierenMenuItem, kachelLöschenMenuItem);
@@ -179,36 +247,83 @@ public class TurleSimulator extends Application{
 		ImageView compileView = new ImageView(compileIcon);
 		compileButton.setGraphic(compileView);
 		compileButton.setTooltip(new Tooltip("Kompilieren."));
+		//___________
+		ToggleGroup terriToggleGroup = new ToggleGroup();
 		
-		Button terrainButton = new Button();
+		terrainButton = new Button();
 		Image terrainIcon = new Image(getClass().getResourceAsStream("media/Terrain24.gif"));
 		ImageView terrainView = new ImageView(terrainIcon);
 		terrainButton.setGraphic(terrainView);
 		terrainButton.setTooltip(new Tooltip("Terrain ändern."));
 		
-		Button turtleButton = new Button();
+		
+		turtleButton = new ToggleButton();
 		Image turtleIcon = new Image(getClass().getResourceAsStream("media/Turtle24.png"));
 		ImageView turtleView = new ImageView(turtleIcon);
 		turtleButton.setGraphic(turtleView);
 		turtleButton.setTooltip(new Tooltip("Schildkröte bewegen."));
+		turtleButton.setToggleGroup(terriToggleGroup);
 		
-		Button salatButton = new Button();
+		turtleButton.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				
+				choosenItem = turtle;
+				turtlePlazierenMenuItem.setSelected(true);
+			}
+		});
+		
+		salatButton = new ToggleButton();
 		Image salatIcon = new Image(getClass().getResourceAsStream("media/Salat24.gif"));
 		ImageView salatView = new ImageView(salatIcon);
 		salatButton.setGraphic(salatView);
 		salatButton.setTooltip(new Tooltip("Salatkopf plazieren."));
+		salatButton.setToggleGroup(terriToggleGroup);
 		
-		Button mauerButton = new Button();
+		salatButton.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				choosenItem = salat;
+				salatPlazierenMenuItem.setSelected(true);
+			}
+	
+		});
+		
+		mauerButton = new ToggleButton();
 		Image mauerIcon = new Image(getClass().getResourceAsStream("media/Wall24.gif"));
 		ImageView mauerView = new ImageView(mauerIcon);
 		mauerButton.setGraphic(mauerView);
 		mauerButton.setTooltip(new Tooltip("Mauer plazieren."));
+		mauerButton.setToggleGroup(terriToggleGroup);
 		
-		Button deleteButton = new Button();
+		mauerButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				choosenItem = wall;
+				MauerPlazierenMenuItem.setSelected(true);
+			}
+	
+		});
+		
+		deleteButton = new ToggleButton();
 		Image deleteIcon = new Image(getClass().getResourceAsStream("media/Delete24.gif"));
 		ImageView deleteView = new ImageView(deleteIcon);
 		deleteButton.setGraphic(deleteView);
 		deleteButton.setTooltip(new Tooltip("Löschen."));
+		deleteButton.setToggleGroup(terriToggleGroup);
+		
+		deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				choosenItem = delete;
+				kachelLöschenMenuItem.setSelected(true);
+				
+			}
+		});
+		//_____
 		
 		Button turtleSalatButton = new Button();
 		Image turtleSalatIcon = new Image(getClass().getResourceAsStream("media/TurtleSalat24.png"));
@@ -267,9 +382,6 @@ public class TurleSimulator extends Application{
 				turtleLeftButton, turtleMoveButton, turtlePickButton, turtlePutButton, new Separator(), playButton, pauseButton, stopButton, new Separator(), tickRateSlider);
 
 		
-		
-		
-		
 		return toolbar;
 	}
 	
@@ -297,4 +409,5 @@ public class TurleSimulator extends Application{
 		return statusLabel;
 	}
 }
+	
 

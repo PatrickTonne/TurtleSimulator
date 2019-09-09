@@ -26,6 +26,7 @@ public class Territorium {
 	int turtleYPos = 0;
 	private int turtleDirection =1;
 	private int salatCounter = 0;
+	
 
 	// Konstruktor
 
