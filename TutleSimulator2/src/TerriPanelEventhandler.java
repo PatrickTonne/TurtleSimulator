@@ -15,17 +15,13 @@ public class TerriPanelEventhandler {
 		int xTile = getNearTile(pressEvent.getX());
 		int yTile = getNearTile(pressEvent.getY());
 		
-		terri1.setWall(xTile, yTile);
-		
-		
-		
-		
+		System.out.println(xTile + "" + yTile);
 		
 	}
 	
 	public int getNearTile( double value) {
 		
-		int output = ((int) (value/34))+1;
+		int output = ((int) (value/34));
 		return output;
 		
 	}
