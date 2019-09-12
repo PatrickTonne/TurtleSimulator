@@ -112,7 +112,7 @@ public class Territorium extends Observable{
 	}
 
 // Hilfsmethode: Ist das Feld eine Wand?
-	private boolean isWall(int x, int y) {
+	boolean isWall(int x, int y) {
 		if (playGround[y][x] == wall) {
 			return true;
 		} else {
