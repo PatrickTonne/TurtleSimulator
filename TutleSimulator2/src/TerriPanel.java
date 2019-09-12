@@ -1,4 +1,7 @@
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
@@ -9,7 +12,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
-public class TerriPanel extends Region {
+public class TerriPanel extends Region implements Observer{
 
 	private Canvas canvas1;
 	private Territorium terri1;
@@ -25,18 +28,24 @@ public class TerriPanel extends Region {
 	private Image turtleSOUTHImage;
 	private Image turtleWESTImage;
 	private Image salatImage;
+	
+	private ChoosenItem choosenItem1;
+	
+	private GraphicsContext gc;
 
-	public TerriPanel(Territorium ter, ScrollPane sp1) {
+	public TerriPanel(Territorium ter, ScrollPane sp1, ChoosenItem choosenItem) {
 
 		loadImages();
 
 		terri1 = ter;
+		
+		this.choosenItem1 = choosenItem;
 
 		this.canvasWidth = ter.YSize * 34 + gap;
 		this.canvasHeight = ter.XSize * 34 + gap;
 
 		this.canvas1 = new Canvas(this.canvasWidth + gap, this.canvasHeight + gap);
-		GraphicsContext gc = canvas1.getGraphicsContext2D();
+		this.gc = canvas1.getGraphicsContext2D();
 
 		// Spielfeld wird aufgebaut
 		setPlayGround();
@@ -49,13 +58,17 @@ public class TerriPanel extends Region {
 		});
 
 		TerriPanelEventhandler eventhandler = new TerriPanelEventhandler(terri1, this);
-		canvas1.setOnMousePressed(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent me) {
-				eventhandler.setOnMousePressed(me);
+		canvas1.addEventHandler(MouseEvent.ANY, eventhandler);
+		terri1.addObserver(this);
 
-			}
-		});
+	}
 
+	public ChoosenItem getChoosenItem1() {
+		return choosenItem1;
+	}
+
+	public void setChoosenItem1(ChoosenItem choosenItem1) {
+		this.choosenItem1 = choosenItem1;
 	}
 
 	// ScrollPane-Centering by:
@@ -145,5 +158,11 @@ public class TerriPanel extends Region {
 
 		this.salatImage = new Image(getClass().getResource("media/Salat24.gif").toString());
 
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		drawCanvas(this.gc, terri1);
+		
 	}
 }

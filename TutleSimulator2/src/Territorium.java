@@ -1,8 +1,10 @@
+import java.util.Observable;
+
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
 
-public class Territorium {
+public class Territorium extends Observable{
 	// Größe des Spielfelds
 	final int startCols = 10;
 	final int startRows = 10;
@@ -27,6 +29,7 @@ public class Territorium {
 	private int turtleDirection =1;
 	private int salatCounter = 0;
 	
+	// Ausgewähltes Item in der ToolBar/ MenüBar
 
 	// Konstruktor
 
@@ -93,6 +96,8 @@ public class Territorium {
 			}
 			break;
 		}
+		setChanged();
+		notifyObservers();
 	}
 
 	// Hilfmethode: Ist das Feld im Territorium?
@@ -118,6 +123,8 @@ public class Territorium {
 	public void setTurtlePos(int editXPos, int editYPos) {
 		this.turtleXPos = editXPos;
 		this.turtleYPos = editYPos;
+		setChanged();
+		notifyObservers();
 	}
 
 	public int getTurtleDirection() {
@@ -126,6 +133,8 @@ public class Territorium {
 
 	public void setTurtleDirection(int turtleDirection) {
 		this.turtleDirection = turtleDirection;
+		setChanged();
+		notifyObservers();
 	}
 
 	public int getSalatCounter() {
@@ -138,16 +147,16 @@ public class Territorium {
 		} else {
 			this.turtleDirection++;
 		}
+		setChanged();
+		notifyObservers();
 	}
 
 	public void setWall(int x, int y) throws OutOfTerritoryException {
-		if (isInTerri(x, y) == true) {
+		if (isInTerri(x, y) == true &&( turtleXPos != x || turtleYPos != y)) {
 			this.playGround[y][x] = wall;
-		} else {
-			throw new OutOfTerritoryException();
-
-		}
-
+		} 
+		setChanged();
+		notifyObservers();
 	}
 
 	public void setSalat(int x, int y) throws OutOfTerritoryException, WallException {
@@ -158,15 +167,13 @@ public class Territorium {
 		} else {
 			playGround[y][x]++;
 		}
+		setChanged();
+		notifyObservers();
 
 	}
 
 	public int[][] getPlayGround() {
 		return playGround;
-	}
-
-	public void setTurtleXPos() {
-		this.turtleYPos = this.turtleYPos - 1;
 	}
 
 	public void turtleTake() throws noSalatOnFieldException {
@@ -176,6 +183,8 @@ public class Territorium {
 			this.turtle.salatCount++;
 			this.playGround[turtleYPos][turtleXPos]--;
 		}
+		setChanged();
+		notifyObservers();
 	}
 
 	public void turtleDrop() throws noSalatInMouthException {
@@ -185,5 +194,14 @@ public class Territorium {
 			this.turtle.salatCount--;
 			this.playGround[this.turtleYPos][this.turtleXPos]++;
 		}
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void deleteTile(int x, int y) {
+		
+		playGround[y][x] = 0;
+		setChanged();
+		notifyObservers();
 	}
 }

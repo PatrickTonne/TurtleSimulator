@@ -36,20 +36,7 @@ public class TurtleSimulator extends Application{
 
 	}
 	
-	public int choosenItem = 0;
-	
-	public int getChoosenItem() {
-		return choosenItem;
-	}
-
-	public void setChoosenItem(int choosenItem) {
-		this.choosenItem = choosenItem;
-	}
-
-	int turtle = 0;
-	int salat = 1;
-	int wall = 2;
-	int delete =3;
+	ChoosenItem choosenItem1 = new ChoosenItem();
 	
 	private Button terrainButton;
 	private ToggleButton turtleButton;
@@ -133,7 +120,7 @@ public class TurtleSimulator extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				choosenItem = turtle;
+				choosenItem1.choosenItem = choosenItem1.turtleChoosen;
 				turtleButton.setSelected(true);
 				
 			}
@@ -145,7 +132,7 @@ public class TurtleSimulator extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				choosenItem = salat;
+				choosenItem1.choosenItem = choosenItem1.salatChoosen;
 				salatButton.setSelected(true);
 				
 			}
@@ -156,7 +143,7 @@ public class TurtleSimulator extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				choosenItem = wall;
+				choosenItem1.choosenItem = choosenItem1.wallChoosen;
 				mauerButton.setSelected(true);
 				
 			}
@@ -167,7 +154,7 @@ public class TurtleSimulator extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				choosenItem = delete;
+				choosenItem1.choosenItem = choosenItem1.deleteChoosen ;
 				deleteButton.setSelected(true);
 				
 			}
@@ -269,7 +256,7 @@ public class TurtleSimulator extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				
-				choosenItem = turtle;
+				choosenItem1.choosenItem = choosenItem1.turtleChoosen;
 				turtlePlazierenMenuItem.setSelected(true);
 			}
 		});
@@ -285,7 +272,7 @@ public class TurtleSimulator extends Application{
 			
 			@Override
 			public void handle(ActionEvent event) {
-				choosenItem = salat;
+				choosenItem1.choosenItem = choosenItem1.salatChoosen;
 				salatPlazierenMenuItem.setSelected(true);
 			}
 	
@@ -301,7 +288,7 @@ public class TurtleSimulator extends Application{
 		mauerButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				choosenItem = wall;
+				choosenItem1.choosenItem = choosenItem1.wallChoosen;
 				MauerPlazierenMenuItem.setSelected(true);
 			}
 	
@@ -318,7 +305,7 @@ public class TurtleSimulator extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				choosenItem = delete;
+				choosenItem1.choosenItem = choosenItem1.deleteChoosen ;
 				kachelLöschenMenuItem.setSelected(true);
 				
 			}
@@ -394,7 +381,7 @@ public class TurtleSimulator extends Application{
 		SplitPane splitPane = new SplitPane();
 		TextArea codeEditor = new TextArea();
 		ScrollPane sp1 = new ScrollPane();
-		TerriPanel tp1 = new TerriPanel(terri1, sp1);
+		TerriPanel tp1 = new TerriPanel(terri1, sp1, choosenItem1);
 		
 		sp1.setContent(tp1.getCanvas());
 		splitPane.getItems().addAll(codeEditor,sp1);
