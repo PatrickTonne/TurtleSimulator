@@ -116,6 +116,15 @@ public class TurtleSimulator extends Application{
 		
 		MenuItem beendenItem = new MenuItem("_Beenden");
 		beendenItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+Q"));
+		
+		beendenItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				System.exit(0);
+				
+			}
+		});
 		editorMenu.getItems().addAll(neuItem, öffnenItem, new SeparatorMenuItem(),kompilierenItem, druckenItem, new SeparatorMenuItem(),beendenItem);
 		
 		//Territorium Menu
