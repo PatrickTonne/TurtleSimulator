@@ -1,10 +1,19 @@
 
+import java.util.Optional;
+
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -17,6 +26,7 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
@@ -25,9 +35,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class TurtleSimulator extends Application{
 
@@ -48,6 +60,8 @@ public class TurtleSimulator extends Application{
 	private RadioMenuItem salatPlazierenMenuItem;
 	private RadioMenuItem MauerPlazierenMenuItem;
 	private RadioMenuItem kachelLöschenMenuItem;
+	
+	Territorium terri1;
 	
 	
 	
@@ -167,16 +181,51 @@ public class TurtleSimulator extends Application{
 		Menu schildkröteMenu = new Menu("_Schildkröte");
 		
 		MenuItem salatImMundItem = new MenuItem("Salat im Maul");
-		MenuItem linksUmItem = new MenuItem("linksUm");
-		linksUmItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+SHIFT+L"));
+		MenuItem rechtsUmItem = new MenuItem("rechtsUm");
+		rechtsUmItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				terri1.turtleRight();
+				
+			}
+		});
+		rechtsUmItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+SHIFT+L"));
 		MenuItem vorItem = new MenuItem("vor");
+		
+		vorItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				terri1.moveTurtle();
+				
+			}
+		});
 		vorItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+SHIFT+V"));
 		MenuItem nimmItem= new MenuItem("nimm");
+		
+		nimmItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				terri1.turtleTake();
+				
+			}
+		});
 		nimmItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+SHIFT+N"));
 		MenuItem gibItem = new MenuItem("gib");
+		
+		gibItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				terri1.turtleDrop();
+				
+			}
+		});
 		gibItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+SHIFT+G"));
 		
-		schildkröteMenu.getItems().addAll(salatImMundItem, linksUmItem, vorItem, nimmItem, gibItem);
+		schildkröteMenu.getItems().addAll(salatImMundItem, rechtsUmItem, vorItem, nimmItem, gibItem);
 	
 		Menu SimulationMenu = new Menu("_Simulation");
 		
@@ -242,6 +291,71 @@ public class TurtleSimulator extends Application{
 		ImageView terrainView = new ImageView(terrainIcon);
 		terrainButton.setGraphic(terrainView);
 		terrainButton.setTooltip(new Tooltip("Terrain ändern."));
+		
+		terrainButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			//Grundlage von für neues Fenster: https://stackoverflow.com/questions/31556373/javafx-dialog-with-2-input-fields
+			@Override
+			public void handle(ActionEvent event) {
+				// Create the custom dialog.
+			    Dialog<Pair<String, String>> dialog = new Dialog<>();
+			    dialog.setTitle("Spielfeldgröße ändern");
+
+			    // Set the button types.
+			    ButtonType loginButtonType = new ButtonType("OK", ButtonData.OK_DONE);
+			    dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+			            GridPane gridPane = new GridPane();
+			    gridPane.setHgap(10);
+			    gridPane.setVgap(10);
+			    gridPane.setPadding(new Insets(20, 150, 10, 10));
+
+			    TextField height = new TextField();
+			    height.setPromptText("5-50");
+			    TextField width = new TextField();
+			    width.setPromptText("5-50");
+
+			    gridPane.add(new Label("Höhe"), 0, 0);
+			    gridPane.add(height, 1, 0);
+			    gridPane.add(new Label("Breite:"), 2, 0);
+			    gridPane.add(width, 3, 0);
+
+			    dialog.getDialogPane().setContent(gridPane);
+
+
+			    // Convert the result to a username-password-pair when the login button is clicked.
+			    dialog.setResultConverter(dialogButton -> {
+			        if (dialogButton == loginButtonType) {
+			        	int heightInt = Integer.parseInt(height.getText());
+			        	int widthint = Integer.parseInt(width.getText());
+			        	
+			        	if(heightInt > 4 && heightInt <51 && widthint >4 && widthint <51) {
+			            System.out.println("Höhe:" +  heightInt);
+			            System.out.println("Breite:" + widthint);
+			            
+			            System.out.println("Ergebnis:" + widthint);
+			            //Resize muss noch überabreitet werden.
+			            
+			            terri1.reSize(heightInt, widthint);
+			        	}
+			        	else {
+			        		Alert alert = new Alert(AlertType.ERROR);
+			        		alert.setTitle("Fehler");
+			        		alert.setHeaderText("Es sind nur Größen von 5-50 möglich!");
+
+			        		alert.showAndWait();
+			        	}
+			        }
+			        return null;
+			    });
+
+			    Optional<Pair<String, String>> result = dialog.showAndWait();
+
+			    result.ifPresent(pair -> {
+			        System.out.println("From=" + pair.getKey() + ", To=" + pair.getValue());
+			    });
+			}
+		});
 		
 		
 		turtleButton = new ToggleButton();
@@ -322,25 +436,59 @@ public class TurtleSimulator extends Application{
 		Image turtleLeftIcon = new Image(getClass().getResourceAsStream("media/TurtleLeft24.png"));
 		ImageView turtleLeftView = new ImageView(turtleLeftIcon);
 		turtleLeftButton.setGraphic(turtleLeftView);
-		turtleLeftButton.setTooltip(new Tooltip("Schildkröte nach links drehen."));
+		turtleLeftButton.setTooltip(new Tooltip("Schildkröte nach rechts drehen."));
+		
+		turtleLeftButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				terri1.turtleRight();
+				
+			}
+		});
 		
 		Button turtleMoveButton = new Button();
 		Image turtleMoveIcon = new Image(getClass().getResourceAsStream("media/TurtleMove24.png"));
 		ImageView turtleMoveView = new ImageView(turtleMoveIcon);
 		turtleMoveButton.setGraphic(turtleMoveView);
 		turtleMoveButton.setTooltip(new Tooltip("Schildkröte bewegen"));
+		turtleMoveButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				terri1.moveTurtle();
+				
+			}
+		});
 		
 		Button turtlePickButton = new Button();
 		Image turtlePickIcon = new Image(getClass().getResourceAsStream("media/TurtlePick24.png"));
 		ImageView turtlePickView = new ImageView(turtlePickIcon);
 		turtlePickButton.setGraphic(turtlePickView);
 		turtlePickButton.setTooltip(new Tooltip("Salat aufnehmen."));
+		turtlePickButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				terri1.turtleTake();
+				
+			}
+		});
 		
 		Button turtlePutButton = new Button();
 		Image turtlePutIcon = new Image(getClass().getResourceAsStream("media/TurtlePut24.png"));
 		ImageView turtlePutView = new ImageView(turtlePutIcon);
 		turtlePutButton.setGraphic(turtlePutView);
 		turtlePutButton.setTooltip(new Tooltip("Salat abgeben."));
+		
+		turtlePutButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				terri1.turtleDrop();
+				
+			}
+		});
 		
 		Button playButton = new Button();
 		Image playIcon = new Image(getClass().getResourceAsStream("media/Play24.gif"));
@@ -376,7 +524,7 @@ public class TurtleSimulator extends Application{
 
 	public SplitPane addSplitPane() {
 
-		Territorium terri1 = new Territorium();
+		terri1 = new Territorium();
 		
 		SplitPane splitPane = new SplitPane();
 		TextArea codeEditor = new TextArea();

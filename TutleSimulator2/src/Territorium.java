@@ -1,8 +1,6 @@
+import java.util.Arrays;
 import java.util.Observable;
-
-import javax.swing.text.StyledEditorKit.ForegroundAction;
-
-import org.omg.CORBA.PUBLIC_MEMBER;
+import java.lang.System;
 
 public class Territorium extends Observable{
 	// Größe des Spielfelds
@@ -60,39 +58,39 @@ public class Territorium extends Observable{
 	public void moveTurtle() throws OutOfTerritoryException, WallException {
 		switch (this.turtleDirection) {
 		case (north):
-			if (isInTerri(turtleXPos, turtleYPos - 1) == false) {
+			if (isInTerri(turtleXPos -1, turtleYPos) == false) {
 				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos, turtleYPos - 1) == true) {
-				throw new WallException();
-			} else {
-				this.turtleYPos--;
-			}
-			break;
-		case (west):
-			if (isInTerri(turtleXPos - 1, turtleYPos) == false) {
-				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos - 1, turtleYPos) == true) {
+			} else if (isWall(turtleXPos-1, turtleYPos) == true) {
 				throw new WallException();
 			} else {
 				this.turtleXPos--;
 			}
 			break;
-		case (south):
-			if (isInTerri(turtleXPos, turtleYPos + 1) == false) {
+		case (west):
+			if (isInTerri(turtleXPos , turtleYPos -1) == false) {
 				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos, turtleYPos + 1) == true) {
+			} else if (isWall(turtleXPos, turtleYPos-1) == true) {
 				throw new WallException();
 			} else {
-				this.turtleYPos++;
+				this.turtleYPos--;
 			}
 			break;
-		case (east):
-			if (isInTerri(turtleXPos + 1, turtleYPos) == false) {
+		case (south):
+			if (isInTerri(turtleXPos+1, turtleYPos) == false) {
 				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos + 1, turtleYPos) == true) {
+			} else if (isWall(turtleXPos+1, turtleYPos) == true) {
 				throw new WallException();
 			} else {
 				this.turtleXPos++;
+			}
+			break;
+		case (east):
+			if (isInTerri(turtleXPos, turtleYPos+1) == false) {
+				throw new OutOfTerritoryException();
+			} else if (isWall(turtleXPos, turtleYPos+1) == true) {
+				throw new WallException();
+			} else {
+				this.turtleYPos++;
 			}
 			break;
 		}
@@ -204,4 +202,32 @@ public class Territorium extends Observable{
 		setChanged();
 		notifyObservers();
 	}
+	
+	public void reSize(int rows, int columns) {
+		
+		int[][] newPlayground = new int[rows][columns];
+
+		for (int x = 0; x < this.playGround.length && x < newPlayground.length; x++) {
+			for (int y = 0; y < this.playGround[0].length && y < newPlayground[0].length; y++) {
+				newPlayground[x][y] = this.playGround[x][y];
+			}
+		}
+		
+		playGround = newPlayground;
+	
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void clearPlayground(int x, int y) throws OutOfTerritoryException{
+		if (isInTerri(x, y)) {
+			this.playGround[x][y] = 0;
+		} 
+		else {
+			throw new OutOfTerritoryException();
+		}
+		setChanged();
+		notifyObservers();
+	}
+
 }
