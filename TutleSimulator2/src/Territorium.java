@@ -2,10 +2,10 @@ import java.util.Arrays;
 import java.util.Observable;
 import java.lang.System;
 
-public class Territorium extends Observable{
+public class Territorium extends Observable {
 	// Größe des Spielfelds
-	final int startCols = 10;
-	final int startRows = 10;
+	final int startCols = 20;
+	final int startRows = 20;
 
 	int XSize = startCols;
 	int YSize = startRows;
@@ -24,12 +24,11 @@ public class Territorium extends Observable{
 	private Turtle turtle = new Turtle(this);
 	private int turtleXPos = 0;
 	int turtleYPos = 0;
-	private int turtleDirection =1;
+	private int turtleDirection = 1;
 	private int salatCounter = 0;
-	
+
 	// Ausgewähltes Item in der ToolBar/ MenüBar
 
-	// Konstruktor
 
 	public int getXSize() {
 		return XSize;
@@ -58,36 +57,36 @@ public class Territorium extends Observable{
 	public void moveTurtle() throws OutOfTerritoryException, WallException {
 		switch (this.turtleDirection) {
 		case (north):
-			if (isInTerri(turtleXPos -1, turtleYPos) == false) {
+			if (isInTerri(turtleXPos - 1, turtleYPos) == false) {
 				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos-1, turtleYPos) == true) {
+			} else if (isWall(turtleXPos - 1, turtleYPos) == true) {
 				throw new WallException();
 			} else {
 				this.turtleXPos--;
 			}
 			break;
 		case (west):
-			if (isInTerri(turtleXPos , turtleYPos -1) == false) {
+			if (isInTerri(turtleXPos, turtleYPos - 1) == false) {
 				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos, turtleYPos-1) == true) {
+			} else if (isWall(turtleXPos, turtleYPos - 1) == true) {
 				throw new WallException();
 			} else {
 				this.turtleYPos--;
 			}
 			break;
 		case (south):
-			if (isInTerri(turtleXPos+1, turtleYPos) == false) {
+			if (isInTerri(turtleXPos + 1, turtleYPos) == false) {
 				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos+1, turtleYPos) == true) {
+			} else if (isWall(turtleXPos + 1, turtleYPos) == true) {
 				throw new WallException();
 			} else {
 				this.turtleXPos++;
 			}
 			break;
 		case (east):
-			if (isInTerri(turtleXPos, turtleYPos+1) == false) {
+			if (isInTerri(turtleXPos, turtleYPos + 1) == false) {
 				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos, turtleYPos+1) == true) {
+			} else if (isWall(turtleXPos, turtleYPos + 1) == true) {
 				throw new WallException();
 			} else {
 				this.turtleYPos++;
@@ -150,9 +149,9 @@ public class Territorium extends Observable{
 	}
 
 	public void setWall(int x, int y) throws OutOfTerritoryException {
-		if (isInTerri(x, y) == true &&( turtleXPos != x || turtleYPos != y)) {
+		if (isInTerri(x, y) == true && (turtleXPos != x || turtleYPos != y)) {
 			this.playGround[y][x] = wall;
-		} 
+		}
 		setChanged();
 		notifyObservers();
 	}
@@ -186,7 +185,7 @@ public class Territorium extends Observable{
 	}
 
 	public void turtleDrop() throws noSalatInMouthException {
-		if (this.turtle.salatCount<= 0) {
+		if (this.turtle.salatCount <= 0) {
 			throw new noSalatInMouthException();
 		} else {
 			this.turtle.salatCount--;
@@ -195,16 +194,16 @@ public class Territorium extends Observable{
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public void deleteTile(int x, int y) {
-		
+
 		playGround[y][x] = 0;
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public void reSize(int rows, int columns) {
-		
+
 		int[][] newPlayground = new int[rows][columns];
 
 		for (int x = 0; x < this.playGround.length && x < newPlayground.length; x++) {
@@ -212,22 +211,26 @@ public class Territorium extends Observable{
 				newPlayground[x][y] = this.playGround[x][y];
 			}
 		}
-		
+
 		this.XSize = columns;
 		this.YSize = rows;
-		
+
 		playGround = newPlayground;
-		
-	
+
+		if (!isInTerri(turtleXPos, turtleYPos)) {
+
+			deleteTile(0, 0);
+			setTurtlePos(0, 0);
+		}
+
 		setChanged();
 		notifyObservers();
 	}
-	
-	public void clearPlayground(int x, int y) throws OutOfTerritoryException{
+
+	public void clearPlayground(int x, int y) throws OutOfTerritoryException {
 		if (isInTerri(x, y)) {
 			this.playGround[x][y] = 0;
-		} 
-		else {
+		} else {
 			throw new OutOfTerritoryException();
 		}
 		setChanged();

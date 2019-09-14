@@ -124,7 +124,16 @@ public class TurtleSimulator extends Application{
 		MenuItem LadenItem = new MenuItem("_Laden");
 		MenuItem bildSpeichernItem = new MenuItem("_Als Bild speichern");
 		MenuItem druckenItem2 = new MenuItem("_Drucken");
-		MenuItem gößeändernItem = new MenuItem("_Größe ändern...");
+		MenuItem größeändernItem = new MenuItem("_Größe ändern...");
+		
+		größeändernItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				changeSize();
+				
+			}
+		});
 		
 		ToggleGroup terriToggleGroup = new ToggleGroup();
 		
@@ -174,7 +183,7 @@ public class TurtleSimulator extends Application{
 			}
 		});
 		
-		terriMenu.getItems().addAll(SpeichernItem, LadenItem, bildSpeichernItem, druckenItem2, gößeändernItem, new SeparatorMenuItem(), turtlePlazierenMenuItem,
+		terriMenu.getItems().addAll(SpeichernItem, LadenItem, bildSpeichernItem, druckenItem2, größeändernItem, new SeparatorMenuItem(), turtlePlazierenMenuItem,
 		salatPlazierenMenuItem, MauerPlazierenMenuItem, kachelLöschenMenuItem);
 		
 		
@@ -297,62 +306,8 @@ public class TurtleSimulator extends Application{
 			//Grundlage von für neues Fenster: https://stackoverflow.com/questions/31556373/javafx-dialog-with-2-input-fields
 			@Override
 			public void handle(ActionEvent event) {
-				// Create the custom dialog.
-			    Dialog<Pair<String, String>> dialog = new Dialog<>();
-			    dialog.setTitle("Spielfeldgröße ändern");
 
-			    // Set the button types.
-			    ButtonType loginButtonType = new ButtonType("OK", ButtonData.OK_DONE);
-			    dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-
-			            GridPane gridPane = new GridPane();
-			    gridPane.setHgap(10);
-			    gridPane.setVgap(10);
-			    gridPane.setPadding(new Insets(20, 150, 10, 10));
-
-			    TextField height = new TextField();
-			    height.setPromptText("5-50");
-			    TextField width = new TextField();
-			    width.setPromptText("5-50");
-
-			    gridPane.add(new Label("Höhe"), 0, 0);
-			    gridPane.add(height, 1, 0);
-			    gridPane.add(new Label("Breite:"), 2, 0);
-			    gridPane.add(width, 3, 0);
-
-			    dialog.getDialogPane().setContent(gridPane);
-
-
-			    dialog.setResultConverter(dialogButton -> {
-			        if (dialogButton == loginButtonType) {
-			        	int heightInt = Integer.parseInt(height.getText());
-			        	int widthInt = Integer.parseInt(width.getText());
-			        	
-			        	if(heightInt > 4 && heightInt <51 && widthInt >4 && widthInt <51) {
-			            System.out.println("Höhe:" +  heightInt);
-			            System.out.println("Breite:" + widthInt);
-			            
-			            System.out.println("Ergebnis:" + widthInt);
-			            //Resize muss noch überabreitet werden.
-			            
-			            terri1.reSize(widthInt, heightInt);
-			        	}
-			        	else {
-			        		Alert alert = new Alert(AlertType.ERROR);
-			        		alert.setTitle("Fehler");
-			        		alert.setHeaderText("Es sind nur Größen von 5-50 möglich!");
-
-			        		alert.showAndWait();
-			        	}
-			        }
-			        return null;
-			    });
-
-			    Optional<Pair<String, String>> result = dialog.showAndWait();
-
-			    result.ifPresent(pair -> {
-			        System.out.println("SHOW AND WAIT");
-			    });
+				changeSize();
 			}
 		});
 		
@@ -541,6 +496,64 @@ public class TurtleSimulator extends Application{
 		Label statusLabel = new Label("Statusmeldung");
 		
 		return statusLabel;
+	}
+	
+	public void changeSize() {
+		
+		// Create the custom dialog.
+	    Dialog<Pair<String, String>> dialog = new Dialog<>();
+	    dialog.setTitle("Spielfeldgröße ändern");
+
+	    // Set the button types.
+	    ButtonType loginButtonType = new ButtonType("OK", ButtonData.OK_DONE);
+	    dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+	            GridPane gridPane = new GridPane();
+	    gridPane.setHgap(10);
+	    gridPane.setVgap(10);
+	    gridPane.setPadding(new Insets(20, 150, 10, 10));
+
+	    TextField height = new TextField();
+	    height.setPromptText("5-50");
+	    TextField width = new TextField();
+	    width.setPromptText("5-50");
+
+	    gridPane.add(new Label("Höhe"), 0, 0);
+	    gridPane.add(height, 1, 0);
+	    gridPane.add(new Label("Breite:"), 2, 0);
+	    gridPane.add(width, 3, 0);
+
+	    dialog.getDialogPane().setContent(gridPane);
+
+
+	    dialog.setResultConverter(dialogButton -> {
+	        if (dialogButton == loginButtonType) {
+	        	int heightInt = Integer.parseInt(height.getText());
+	        	int widthInt = Integer.parseInt(width.getText());
+	        	
+	        	if(heightInt > 4 && heightInt <51 && widthInt >4 && widthInt <51) {
+	            System.out.println("Höhe:" +  heightInt);
+	            System.out.println("Breite:" + widthInt);
+	            
+	            System.out.println("Ergebnis:" + widthInt);
+	            //Resize muss noch überabreitet werden.
+	            
+	            terri1.reSize(widthInt, heightInt);
+	        	}
+	        	else {
+	        		Alert alert = new Alert(AlertType.ERROR);
+	        		alert.setTitle("Fehler");
+	        		alert.setHeaderText("Es sind nur Größen von 5-50 möglich!");
+
+	        		alert.showAndWait();
+	        	}
+	        }
+	        return null;
+	    });
+
+	    Optional<Pair<String, String>> result = dialog.showAndWait();
+
+
 	}
 }
 	

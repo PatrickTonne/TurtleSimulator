@@ -142,10 +142,7 @@ public class TerriPanel extends Region implements Observer{
 	}
 
 	private void setPlayGround() {
-		terri1.setWall(2, 2);
-		terri1.setTurtlePos(6, 6);
-		terri1.setSalat(7, 7);
-		terri1.setSalat(7, 7);
+		terri1.setTurtlePos(0, 0);
 
 	}
 
@@ -169,7 +166,8 @@ public class TerriPanel extends Region implements Observer{
 		this.canvasHeight = terri1.XSize * 34 + gap;
 		
 		gc.clearRect(0, 0, canvas1.getWidth(),canvas1.getHeight());
-		this.canvas1 = new Canvas(this.canvasWidth + gap, this.canvasHeight + gap);
+		this.canvas1.setWidth(canvasWidth +gap);
+		this.canvas1.setHeight(canvasWidth +gap);
 		
 		drawCanvas(this.gc, terri1);
 
