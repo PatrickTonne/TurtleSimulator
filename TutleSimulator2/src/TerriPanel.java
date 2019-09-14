@@ -32,12 +32,14 @@ public class TerriPanel extends Region implements Observer{
 	private ChoosenItem choosenItem1;
 	
 	private GraphicsContext gc;
+	ScrollPane sp1;
 
-	public TerriPanel(Territorium ter, ScrollPane sp1, ChoosenItem choosenItem) {
+	public TerriPanel(Territorium ter, ScrollPane sp, ChoosenItem choosenItem) {
 
 		loadImages();
 
 		terri1 = ter;
+		sp1 = sp;
 		
 		this.choosenItem1 = choosenItem;
 
@@ -162,7 +164,14 @@ public class TerriPanel extends Region implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		drawCanvas(this.gc, terri1);
 		
+		this.canvasWidth = terri1.YSize * 34 + gap;
+		this.canvasHeight = terri1.XSize * 34 + gap;
+		
+		gc.clearRect(0, 0, canvas1.getWidth(),canvas1.getHeight());
+		this.canvas1 = new Canvas(this.canvasWidth + gap, this.canvasHeight + gap);
+		
+		drawCanvas(this.gc, terri1);
+
 	}
 }

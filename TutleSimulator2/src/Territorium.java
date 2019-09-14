@@ -213,7 +213,11 @@ public class Territorium extends Observable{
 			}
 		}
 		
+		this.XSize = columns;
+		this.YSize = rows;
+		
 		playGround = newPlayground;
+		
 	
 		setChanged();
 		notifyObservers();

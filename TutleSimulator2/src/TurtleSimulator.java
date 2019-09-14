@@ -323,20 +323,19 @@ public class TurtleSimulator extends Application{
 			    dialog.getDialogPane().setContent(gridPane);
 
 
-			    // Convert the result to a username-password-pair when the login button is clicked.
 			    dialog.setResultConverter(dialogButton -> {
 			        if (dialogButton == loginButtonType) {
 			        	int heightInt = Integer.parseInt(height.getText());
-			        	int widthint = Integer.parseInt(width.getText());
+			        	int widthInt = Integer.parseInt(width.getText());
 			        	
-			        	if(heightInt > 4 && heightInt <51 && widthint >4 && widthint <51) {
+			        	if(heightInt > 4 && heightInt <51 && widthInt >4 && widthInt <51) {
 			            System.out.println("Höhe:" +  heightInt);
-			            System.out.println("Breite:" + widthint);
+			            System.out.println("Breite:" + widthInt);
 			            
-			            System.out.println("Ergebnis:" + widthint);
+			            System.out.println("Ergebnis:" + widthInt);
 			            //Resize muss noch überabreitet werden.
 			            
-			            terri1.reSize(heightInt, widthint);
+			            terri1.reSize(widthInt, heightInt);
 			        	}
 			        	else {
 			        		Alert alert = new Alert(AlertType.ERROR);
@@ -352,7 +351,7 @@ public class TurtleSimulator extends Application{
 			    Optional<Pair<String, String>> result = dialog.showAndWait();
 
 			    result.ifPresent(pair -> {
-			        System.out.println("From=" + pair.getKey() + ", To=" + pair.getValue());
+			        System.out.println("SHOW AND WAIT");
 			    });
 			}
 		});
