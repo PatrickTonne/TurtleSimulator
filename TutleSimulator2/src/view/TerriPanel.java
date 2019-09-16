@@ -1,4 +1,6 @@
-
+package view;
+import model.*;
+import controller.*;
 import java.util.Observable;
 import java.util.Observer;
 

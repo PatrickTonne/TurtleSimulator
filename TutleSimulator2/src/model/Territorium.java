@@ -1,3 +1,4 @@
+package model;
 import java.util.Arrays;
 import java.util.Observable;
 import java.lang.System;
@@ -7,8 +8,8 @@ public class Territorium extends Observable {
 	final int startCols = 20;
 	final int startRows = 20;
 
-	int XSize = startCols;
-	int YSize = startRows;
+	public int XSize = startCols;
+	public int YSize = startRows;
 
 	// Direction-Möglichkeiten
 	final int north = 0;
@@ -18,7 +19,7 @@ public class Territorium extends Observable {
 
 	final int wall = -1;
 
-	int[][] playGround = new int[YSize][XSize]; // -1 = WALL, 0 = Leer, >0 Anzahl an Salatköpfen auf dem Feld.
+	public int[][] playGround = new int[YSize][XSize]; // -1 = WALL, 0 = Leer, >0 Anzahl an Salatköpfen auf dem Feld.
 
 	// Turtle Attribute
 	private Turtle turtle = new Turtle(this);
@@ -109,7 +110,7 @@ public class Territorium extends Observable {
 	}
 
 // Hilfsmethode: Ist das Feld eine Wand?
-	boolean isWall(int x, int y) {
+	public boolean isWall(int x, int y) {
 		if (playGround[y][x] == wall) {
 			return true;
 		} else {

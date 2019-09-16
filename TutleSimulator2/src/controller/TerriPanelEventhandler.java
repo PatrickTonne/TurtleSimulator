@@ -1,4 +1,8 @@
+package controller;
 import javafx.event.EventHandler;
+import model.*;
+import controller.*;
+import view.*;
 import javafx.scene.input.MouseEvent;
 
 public class TerriPanelEventhandler implements EventHandler<MouseEvent> {
@@ -11,7 +15,7 @@ public class TerriPanelEventhandler implements EventHandler<MouseEvent> {
 	final int wallChoosen = 2;
 	final int deleteChoosen = 3;
 
-	TerriPanelEventhandler(Territorium ter, TerriPanel tp) {
+	public TerriPanelEventhandler(Territorium ter, TerriPanel tp) {
 
 		terri1 = ter;
 		tp1 = tp;

@@ -1,3 +1,8 @@
+package view;
+
+import controller.*;
+import model.*;
+import view.media.*;
 
 import java.util.Optional;
 
