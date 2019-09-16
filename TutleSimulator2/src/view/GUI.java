@@ -46,7 +46,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-public class TurtleSimulator extends Application{
+public class GUI extends Application{
 
 	public static void main(String[] args) {
 		launch(args);
@@ -67,7 +67,7 @@ public class TurtleSimulator extends Application{
 	private RadioMenuItem kachelLöschenMenuItem;
 	
 	Territorium terri1;
-	
+	ProgramController controller;
 	
 	
 	public void start(Stage primaryStage) {
@@ -103,6 +103,15 @@ public class TurtleSimulator extends Application{
 		Image neuIcon = new Image(getClass().getResourceAsStream("media/New16.gif"));
 		ImageView neuView = new ImageView(neuIcon);
 		neuItem.setGraphic(neuView);
+		neuItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				
+				controller.newProgram();
+				
+			}
+		});
 		
 		MenuItem öffnenItem = new MenuItem("_Öffnen");
 		öffnenItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+O"));
@@ -288,6 +297,14 @@ public class TurtleSimulator extends Application{
 		ImageView neuView = new ImageView(neuIcon);
 		neuButton.setGraphic(neuView);
 		neuButton.setTooltip(new Tooltip("Neue Simulation starten."));
+		neuButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				controller.newProgram();
+				
+			}
+		});
 		
 		Button öffnenButton = new Button();
 		Image öffnenIcon = new Image(getClass().getResourceAsStream("media/Open24.gif"));
