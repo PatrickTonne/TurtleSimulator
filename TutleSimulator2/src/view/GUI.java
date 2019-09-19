@@ -108,7 +108,7 @@ public class GUI extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				
-				controller.newProgram();
+				controller.newInputWindow();
 				
 			}
 		});
@@ -301,7 +301,7 @@ public class GUI extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				controller.newProgram();
+				controller.newInputWindow();
 				
 			}
 		});

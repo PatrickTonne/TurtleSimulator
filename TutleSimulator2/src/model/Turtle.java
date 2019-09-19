@@ -8,8 +8,9 @@ public class Turtle {
 	private Territorium territorium;
 	
 	
-	public Turtle(Territorium ter) {
+	public void addTerri(Territorium ter) {
 		this.territorium = ter;
+		
 	}
 
 	protected int getSalatCount() {

@@ -22,11 +22,15 @@ public class Territorium extends Observable {
 	public int[][] playGround = new int[YSize][XSize]; // -1 = WALL, 0 = Leer, >0 Anzahl an Salatköpfen auf dem Feld.
 
 	// Turtle Attribute
-	private Turtle turtle = new Turtle(this);
+	private Turtle turtle = new Turtle();
 	private int turtleXPos = 0;
 	int turtleYPos = 0;
 	private int turtleDirection = 1;
 	private int salatCounter = 0;
+	
+	public Territorium() {
+		turtle.addTerri(this);
+	}
 
 	// Ausgewähltes Item in der ToolBar/ MenüBar
 
