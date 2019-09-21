@@ -80,15 +80,12 @@ public class Program {
 			code.delete(code.length() - getSuffix().length(), code.length());
 			return code.toString();
 		} catch (Exception e) {
-			System.out.println("funzt net");
 			return e.toString();
 		}
 	}
 
 	public boolean save(String code) {
-		if (!checkPath()) {
-			return false;
-		}
+		System.out.println("save");
 		code = getPrefix() + code + getSuffix();
 		ArrayList<String> lines = new ArrayList<String>();
 		lines.add(code);
@@ -101,16 +98,14 @@ public class Program {
 		}
 	}
 
-	private boolean checkPath() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	private String getPrefix() {
 		return "public class " + programName + " extends model.Turtle { public ";
 	}
 
 	private String getSuffix() {
 		return "}";
+	}
+	public void test() {
+		System.out.println("Das ist ein Test");
 	}
 }

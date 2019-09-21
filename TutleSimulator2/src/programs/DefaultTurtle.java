@@ -1,5 +1,3 @@
-public class DefaultTurtle extends model.Turtle { public 
-void main() {
-
-	lalalal
+public class DefaultTurtle extends model.Turtle { public void main() {
+	hallo
 }}

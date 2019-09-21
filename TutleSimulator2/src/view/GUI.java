@@ -1,19 +1,13 @@
 package view;
 
-import controller.*;
-import model.*;
-import view.media.*;
-import view.Editor;
-
 import java.util.Optional;
-
+import controller.ChoosenItem;
+import controller.ProgramController;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -25,7 +19,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.SeparatorMenuItem;
@@ -42,17 +35,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import model.Program;
+import model.Territorium;
+public class GUI{
 
-public class GUI extends Application{
-
-	public static void main(String[] args) {
-		launch(args);
-
-	}
 	
 	ChoosenItem choosenItem1 = new ChoosenItem();
 	
@@ -70,16 +59,16 @@ public class GUI extends Application{
 	private Editor codeEditor;
 	
 	Territorium terri1;
-	ProgramController controller;
 	Stage stage;
 	Program program;
 	
 	
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage, Program prog) {
 		
 		//BorderPane in BorderPane wird erstellt. Menü wird eingefügt.
 
 		BorderPane borderpane1 = addMenu();	
+		program = prog;
 				
 		BorderPane borderpane2 = new BorderPane();
 		stage = primaryStage;
@@ -114,7 +103,7 @@ public class GUI extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				
-				controller.newInputWindow();
+				ProgramController.newInputWindow();
 				
 			}
 		});
@@ -128,7 +117,7 @@ public class GUI extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				controller.openProgram(stage);
+				ProgramController.openProgram(stage);
 				
 			}
 		});
@@ -149,7 +138,8 @@ public class GUI extends Application{
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				System.exit(0);
+				ProgramController.quitProgram(program, codeEditor.getText());
+				stage.close();
 				
 			}
 		});
@@ -315,7 +305,7 @@ public class GUI extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				controller.newInputWindow();
+				ProgramController.newInputWindow();
 				
 			}
 		});
@@ -329,7 +319,7 @@ public class GUI extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				controller.openProgram(stage);
+				ProgramController.openProgram(stage);
 				
 			}
 		});
@@ -343,8 +333,8 @@ public class GUI extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				
-				controller.program.save(codeEditor.getText());
+				program.save("test");
+
 			}
 		});
 		
@@ -615,6 +605,9 @@ public class GUI extends Application{
 	    Optional<Pair<String, String>> result = dialog.showAndWait();
 
 
+	}
+	public String getCode() {
+		return codeEditor.getText();
 	}
 }
 	

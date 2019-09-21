@@ -51,11 +51,10 @@ public class ProgramController extends Application {
 		program = new Program();
 		add(program);
 		primaryStage.setOnCloseRequest(event -> {
-			System.out.println("PrimaryStage is closing");
-			remove(program);
+			quitProgram(program, Simulator.getCode());
 		});
 
-		Simulator.start(primaryStage);
+		Simulator.start(primaryStage, program);
 
 	}
 
@@ -70,10 +69,10 @@ public class ProgramController extends Application {
 			stage.setTitle(name);
 
 			stage.setOnCloseRequest(event -> {
+				quitProgram(program, newGui.getCode());
 				System.out.println("Stage is closing");
-				remove(program);
 			});
-			newGui.start(stage);
+			newGui.start(stage, program);
 
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -157,10 +156,9 @@ public class ProgramController extends Application {
 				newStage.setTitle(name);
 
 				newStage.setOnCloseRequest(event -> {
-					System.out.println("Stage is closing");
-					remove(program);
+					quitProgram(program, newGui.getCode());
 				});
-				newGui.start(newStage);
+				newGui.start(newStage, program);
 				
 				}
 		}
