@@ -42,6 +42,7 @@ public class Program {
 			lines.add(code);
 			Files.write(filePath, lines, StandardCharsets.UTF_8);
 		}
+		
 		if (!Files.isWritable(filePath)) {
 			throw new IOException();
 		}
@@ -79,6 +80,7 @@ public class Program {
 			code.delete(code.length() - getSuffix().length(), code.length());
 			return code.toString();
 		} catch (Exception e) {
+			System.out.println("funzt net");
 			return e.toString();
 		}
 	}
@@ -105,7 +107,7 @@ public class Program {
 	}
 
 	private String getPrefix() {
-		return "public class " + programName + " extends model.Spaceship { public ";
+		return "public class " + programName + " extends model.Turtle { public ";
 	}
 
 	private String getSuffix() {

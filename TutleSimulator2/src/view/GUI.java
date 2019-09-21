@@ -3,6 +3,7 @@ package view;
 import controller.*;
 import model.*;
 import view.media.*;
+import view.Editor;
 
 import java.util.Optional;
 
@@ -66,8 +67,12 @@ public class GUI extends Application{
 	private RadioMenuItem MauerPlazierenMenuItem;
 	private RadioMenuItem kachelLöschenMenuItem;
 	
+	private Editor codeEditor;
+	
 	Territorium terri1;
 	ProgramController controller;
+	Stage stage;
+	Program program;
 	
 	
 	public void start(Stage primaryStage) {
@@ -77,6 +82,7 @@ public class GUI extends Application{
 		BorderPane borderpane1 = addMenu();	
 				
 		BorderPane borderpane2 = new BorderPane();
+		stage = primaryStage;
 
 		//Toolbar, SplitPane und Label wird eingefügt.
 		borderpane2.setTop(addToolBar());
@@ -118,6 +124,14 @@ public class GUI extends Application{
 		Image öffnenIcon = new Image(getClass().getResourceAsStream("media/Open16.gif"));
 		ImageView öffnenView = new ImageView(öffnenIcon);
 		öffnenItem.setGraphic(öffnenView);
+		öffnenItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				controller.openProgram(stage);
+				
+			}
+		});
 		
 		MenuItem kompilierenItem = new MenuItem("_Kompilieren");
 		kompilierenItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+K"));
@@ -311,12 +325,28 @@ public class GUI extends Application{
 		ImageView öffnenView = new ImageView(öffnenIcon);
 		öffnenButton.setGraphic(öffnenView);
 		öffnenButton.setTooltip(new Tooltip("Projekt öffnen."));
+		öffnenButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				controller.openProgram(stage);
+				
+			}
+		});
 		
 		Button sichernButton = new Button();
 		Image sichernIcon = new Image(getClass().getResourceAsStream("media/Save24.gif"));
 		ImageView sichernView = new ImageView(sichernIcon);
 		sichernButton.setGraphic(sichernView);
 		sichernButton.setTooltip(new Tooltip("Sichern."));
+		sichernButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				
+				controller.program.save(codeEditor.getText());
+			}
+		});
 		
 		Button compileButton = new Button();
 		Image compileIcon = new Image(getClass().getResourceAsStream("media/Compile24.gif"));
@@ -512,7 +542,7 @@ public class GUI extends Application{
 		terri1 = new Territorium();
 		
 		SplitPane splitPane = new SplitPane();
-		TextArea codeEditor = new TextArea();
+		codeEditor = new Editor(program);
 		ScrollPane sp1 = new ScrollPane();
 		TerriPanel tp1 = new TerriPanel(terri1, sp1, choosenItem1);
 		
