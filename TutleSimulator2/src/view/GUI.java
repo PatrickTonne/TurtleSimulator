@@ -2,6 +2,7 @@ package view;
 
 import java.util.Optional;
 import controller.ChoosenItem;
+import controller.CompilerController;
 import controller.ProgramController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -343,8 +344,17 @@ public class GUI{
 		ImageView compileView = new ImageView(compileIcon);
 		compileButton.setGraphic(compileView);
 		compileButton.setTooltip(new Tooltip("Kompilieren."));
+		compileButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				CompilerController.Compile(program);
+				
+			}
+		});
 		//___________
 		ToggleGroup terriToggleGroup = new ToggleGroup();
+		
 		
 		terrainButton = new Button();
 		Image terrainIcon = new Image(getClass().getResourceAsStream("media/Terrain24.gif"));
