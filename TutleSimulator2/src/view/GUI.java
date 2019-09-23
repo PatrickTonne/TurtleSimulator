@@ -3,8 +3,12 @@ package view;
 import java.util.Optional;
 import controller.ChoosenItem;
 import controller.CompilerController;
+import controller.PlayState;
 import controller.ProgramController;
+import controller.SimulationController;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -45,6 +49,7 @@ public class GUI{
 
 	
 	ChoosenItem choosenItem1 = new ChoosenItem();
+	PlayState playState1 = new PlayState();
 	
 	private Button terrainButton;
 	private ToggleButton turtleButton;
@@ -62,6 +67,7 @@ public class GUI{
 	Territorium terri1;
 	Stage stage;
 	Program program;
+	SimulationController simulationController = new SimulationController();
 	
 	
 	public void start(Stage primaryStage, Program prog) {
@@ -271,17 +277,40 @@ public class GUI{
 		Image startIcon = new Image(getClass().getResourceAsStream("media/Play16.gif"));
 		ImageView startView = new ImageView(startIcon);
 		startItem.setGraphic(startView);
-	
+		startItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				playState1.setPlayState(0);
+			
+			}
+		});
 		MenuItem pauseItem = new MenuItem("_Pause");
 		Image pauseIcon = new Image(getClass().getResourceAsStream("media/Pause16.gif"));
 		ImageView pauseView = new ImageView(pauseIcon);
 		pauseItem.setGraphic(pauseView);
+		pauseItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				playState1.setPlayState(2);
+				
+			}
+		});
 		
 		MenuItem stopItem = new  MenuItem("_Stopp");
 		stopItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+F12"));
 		Image stopIcon = new Image(getClass().getResourceAsStream("media/Stop16.gif"));
 		ImageView stopView = new ImageView(stopIcon);
 		stopItem.setGraphic(stopView);
+		stopItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				playState1.setPlayState(1);
+				
+			}
+		});
 		
 		SimulationMenu.getItems().addAll(startItem, pauseItem, stopItem);
 		
@@ -349,7 +378,7 @@ public class GUI{
 			@Override
 			public void handle(ActionEvent event) {
 				program.save(codeEditor.getText());
-				CompilerController.Compile(program);
+				CompilerController.Compile(program, terri1);
 				
 			}
 		});
@@ -511,22 +540,58 @@ public class GUI{
 		ImageView playView = new ImageView(playIcon);
 		playButton.setGraphic(playView);
 		playButton.setTooltip(new Tooltip("Starten."));
+		playButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				playState1.setPlayState(0);
+				
+			}
+		});
 		
 		Button pauseButton = new Button();
 		Image pauseIcon = new Image(getClass().getResourceAsStream("media/Pause24.gif"));
 		ImageView pauseView = new ImageView(pauseIcon);
 		pauseButton.setGraphic(pauseView);
 		pauseButton.setTooltip(new Tooltip("Pause."));
+		pauseButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				playState1.setPlayState(2);
+				
+			}
+		});
 		
 		Button stopButton = new Button();
 		Image stopIcon = new Image(getClass().getResourceAsStream("media/Stop24.gif"));
 		ImageView stopView = new ImageView(stopIcon);
 		stopButton.setGraphic(stopView);
 		stopButton.setTooltip(new Tooltip("Stopp."));
+		stopButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				playState1.setPlayState(1);
+				
+			}
+		});
 		
-		Slider tickRateSlider = new Slider(0,50,100);
-		tickRateSlider.setValue(0);
+		Slider tickRateSlider = new Slider(0,100,100);
+		tickRateSlider.setValue(50);
+		tickRateSlider.setShowTickMarks(true);
+		tickRateSlider.setShowTickLabels(true);
 		tickRateSlider.setTooltip(new Tooltip("Geschwindigkeit einstellen."));
+		tickRateSlider.valueProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				simulationController.setSpeed(newValue.intValue());
+				
+			}
+
+		
+		});
 		
 		
 		toolbar = new ToolBar(neuButton, öffnenButton, new Separator(), sichernButton, compileButton, new Separator(),terrainButton, turtleButton, salatButton, mauerButton, deleteButton, new Separator(), turtleSalatButton,

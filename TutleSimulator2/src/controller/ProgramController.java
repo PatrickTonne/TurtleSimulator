@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Optional;
 
-
 import java.io.File;
 
 import javafx.application.Application;
@@ -22,8 +21,8 @@ import view.*;
 
 public class ProgramController extends Application {
 
-	public static final String DIRECTORY = "src" + File.separator + "programs";
-	public static final String DEFAULTPROGRAMM = System.lineSeparator() + "void main() {" + System.lineSeparator()
+	public static final String SAVEFOLDER = "src" + File.separator + "programs";
+	public static final String MAINPROGRAM = System.lineSeparator() + "void main() {" + System.lineSeparator()
 			+ System.lineSeparator() + "}";
 	GUI Simulator;
 	Stage stage;
@@ -60,7 +59,7 @@ public class ProgramController extends Application {
 
 	static public void newProgram(String name) throws IOException {
 
-		if(!exists(name)) {
+		if (!exists(name)) {
 			GUI newGui = new GUI();
 			Stage stage = new Stage();
 			program = new Program(name);
@@ -76,11 +75,11 @@ public class ProgramController extends Application {
 
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
-	        alert.setTitle("Name vergeben");
-	        alert.setHeaderText("Fehler!");
-	        alert.setContentText("Der eingegebene Name wird bereits verwendet.");
-	 
-	        alert.showAndWait();
+			alert.setTitle("Name vergeben");
+			alert.setHeaderText("Fehler!");
+			alert.setContentText("Der eingegebene Name wird bereits verwendet.");
+
+			alert.showAndWait();
 		}
 
 	}
@@ -115,17 +114,18 @@ public class ProgramController extends Application {
 
 		});
 	}
-	
+
 	public static boolean exists(String name) {
-		Path filePath = Paths.get(DIRECTORY, name + ".java" );
+		Path filePath = Paths.get(SAVEFOLDER, name + ".java");
 		return Files.exists(filePath);
 	}
 
-	public static void openProgram(Stage stage){
-		//Quelle: https://panjutorials.de/tutorials/javafx-8-gui/lektionen/file-chooser-in-javafx/
+	public static void openProgram(Stage stage) {
+		// Quelle:
+		// https://panjutorials.de/tutorials/javafx-8-gui/lektionen/file-chooser-in-javafx/
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Programm auswählen");
-		File dirFile = new File(DIRECTORY);
+		File dirFile = new File(SAVEFOLDER);
 		fileChooser.setInitialDirectory(dirFile);
 		FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("*.java", "*.java");
 		fileChooser.getExtensionFilters().add(filter);
@@ -133,15 +133,15 @@ public class ProgramController extends Application {
 		if (file != null) {
 			if (isOpen(file.getName())) {
 				Alert alert = new Alert(AlertType.ERROR);
-		        alert.setTitle("Programm bereits geöffnet!");
-		        alert.setHeaderText("Fehler!");
-		        alert.setContentText("Du hast das Programm bereits in einem anderen Fenster geöffnet.");
-		 
-		        alert.showAndWait();
-				
-			}
-			else {
-				//Quelle: https://stackoverflow.com/questions/924394/how-to-get-the-filename-without-the-extension-in-java
+				alert.setTitle("Programm bereits geöffnet!");
+				alert.setHeaderText("Fehler!");
+				alert.setContentText("Du hast das Programm bereits in einem anderen Fenster geöffnet.");
+
+				alert.showAndWait();
+
+			} else {
+				// Quelle:
+				// https://stackoverflow.com/questions/924394/how-to-get-the-filename-without-the-extension-in-java
 				String name = file.getName().replaceFirst("[.][^.]+$", "");
 				GUI newGui = new GUI();
 				Stage newStage = new Stage();
@@ -159,17 +159,18 @@ public class ProgramController extends Application {
 					quitProgram(program, newGui.getCode());
 				});
 				newGui.start(newStage, program);
-				
-				}
+
+			}
 		}
 	}
-	
+
 	public static boolean isOpen(String name) {
-		for(Program program : programList) {
-			if(name.equals(program.getFileName())) {
+		for (Program program : programList) {
+			if (name.equals(program.getFileName())) {
 				return true;
 			}
-		} return false;
-		
+		}
+		return false;
+
 	}
 }

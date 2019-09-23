@@ -7,6 +7,10 @@ public class Turtle {
 	
 	private Territorium territorium;
 	
+	public void main() {
+		
+	}
+	
 	
 	public void addTerri(Territorium ter) {
 		this.territorium = ter;
@@ -29,5 +33,8 @@ public class Turtle {
 	
 	public void drop() {
 		this.territorium.turtleDrop();
+	}
+	public void setTerritorium(Territorium territorium) {
+		this.territorium = territorium;
 	}
 }

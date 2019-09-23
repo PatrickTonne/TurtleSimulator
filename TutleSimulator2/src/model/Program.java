@@ -26,8 +26,8 @@ public class Program {
 	}
 
 	private void createIfNotExists() throws IOException {
-		Path dirPath = Paths.get(ProgramController.DIRECTORY);
-		if (Files.notExists(Paths.get(ProgramController.DIRECTORY))) {
+		Path dirPath = Paths.get(ProgramController.SAVEFOLDER);
+		if (Files.notExists(Paths.get(ProgramController.SAVEFOLDER))) {
 			dirPath = Files.createDirectory(dirPath);
 
 		} else if (!Files.isDirectory(dirPath)) {
@@ -35,9 +35,9 @@ public class Program {
 		} else if (!Files.isWritable(dirPath)) {
 			throw new IOException();
 		}
-		Path filePath = Paths.get(ProgramController.DIRECTORY, getFileName());
+		Path filePath = Paths.get(ProgramController.SAVEFOLDER, getFileName());
 		if (!Files.exists(filePath)) {
-			String code = getPrefix() + ProgramController.DEFAULTPROGRAMM+ getSuffix();
+			String code = getPrefix() + ProgramController.MAINPROGRAM + getSuffix();
 			ArrayList<String> lines = new ArrayList<>();
 			lines.add(code);
 			Files.write(filePath, lines, StandardCharsets.UTF_8);
@@ -58,7 +58,7 @@ public class Program {
 	}
 
 	public String getFullFileName() {
-		return ProgramController.DIRECTORY + File.separator + getFileName();
+		return ProgramController.SAVEFOLDER + File.separator + getFileName();
 	}
 
 	public void setProgramName(String programName) {
@@ -68,7 +68,7 @@ public class Program {
 	public String getProgram() {
 		try {
 			StringBuffer code = new StringBuffer();
-			Path path = Paths.get(ProgramController.DIRECTORY, getFileName());
+			Path path = Paths.get(ProgramController.SAVEFOLDER, getFileName());
 			List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
 			for (int i = 0; i < lines.size(); i++) {
 				code.append(lines.get(i));
@@ -90,7 +90,7 @@ public class Program {
 		ArrayList<String> lines = new ArrayList<String>();
 		lines.add(code);
 		try {
-			Path path = Paths.get(ProgramController.DIRECTORY, getFileName());
+			Path path = Paths.get(ProgramController.SAVEFOLDER, getFileName());
 			Files.write(path, lines, StandardCharsets.UTF_8);
 			return true;
 		} catch (Exception e) {

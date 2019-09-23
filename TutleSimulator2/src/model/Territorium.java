@@ -242,4 +242,13 @@ public class Territorium extends Observable {
 		notifyObservers();
 	}
 
+	public void setTurtle(Turtle turtle) {
+		turtle.setTerritorium(this);
+		this.turtle = turtle;
+		
+	}
+	public Turtle getTurtle() {
+		
+		return this.turtle;
+	}
 }
