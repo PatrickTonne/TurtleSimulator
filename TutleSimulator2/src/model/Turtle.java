@@ -13,22 +13,21 @@ public class Turtle {
 		
 	}
 
-	protected int getSalatCount() {
+	public int getSalatCount() {
 		return salatCount;
 	}
-	void vor() {
-		
+	public void vor() {
 		this.territorium.moveTurtle();
 	}
-	void rechtsUm() {
+	public void rechtsUm() {
 		this.territorium.turtleRight();
 	}
 
-	void pick() {
+	public void pick() {
 		this.territorium.turtleTake();
 	}
 	
-	void drop() {
+	public void drop() {
 		this.territorium.turtleDrop();
 	}
 }

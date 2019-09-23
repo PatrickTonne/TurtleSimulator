@@ -334,7 +334,7 @@ public class GUI{
 
 			@Override
 			public void handle(ActionEvent event) {
-				program.save("test");
+				program.save(codeEditor.getText());
 
 			}
 		});
@@ -348,6 +348,7 @@ public class GUI{
 
 			@Override
 			public void handle(ActionEvent event) {
+				program.save(codeEditor.getText());
 				CompilerController.Compile(program);
 				
 			}

@@ -1,4 +1,4 @@
 public class DefaultTurtle extends model.Turtle { public 
-void main() {
-
+void main(){
+vor();
 }}

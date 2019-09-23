@@ -18,6 +18,11 @@ public class CompilerController {
 		System.out.println(result);
 		if (result == 0) {
 			System.out.println("Kein Fehler");
+			Alert alert = new Alert(AlertType.INFORMATION);
+	        alert.setTitle("Compiler");
+	        alert.setHeaderText("Erfolgreich!");
+	        alert.setContentText("Dein Programm wurde erfolgreich kompiliert.");
+	        alert.showAndWait();
 		}
 		else {
 			Alert alert = new Alert(AlertType.ERROR);
