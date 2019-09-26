@@ -45,6 +45,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 import model.Program;
 import model.Territorium;
+import model.WallException;
 public class GUI{
 
 	
@@ -67,7 +68,7 @@ public class GUI{
 	Territorium terri1;
 	Stage stage;
 	Program program;
-	SimulationController simulationController = new SimulationController();
+	SimulationController simulationController = new SimulationController(playState1);
 	
 	
 	public void start(Stage primaryStage, Program prog) {
@@ -281,6 +282,7 @@ public class GUI{
 
 			@Override
 			public void handle(ActionEvent event) {
+				simulationController.run(terri1);
 				playState1.setPlayState(0);
 			
 			}
@@ -307,6 +309,7 @@ public class GUI{
 
 			@Override
 			public void handle(ActionEvent event) {
+				simulationController.end();
 				playState1.setPlayState(1);
 				
 			}
@@ -544,6 +547,7 @@ public class GUI{
 
 			@Override
 			public void handle(ActionEvent event) {
+				simulationController.run(terri1);
 				playState1.setPlayState(0);
 				
 			}
@@ -572,6 +576,7 @@ public class GUI{
 
 			@Override
 			public void handle(ActionEvent event) {
+				simulationController.end();
 				playState1.setPlayState(1);
 				
 			}
@@ -592,6 +597,7 @@ public class GUI{
 
 		
 		});
+		tickRateSlider.setValue(50);
 		
 		
 		toolbar = new ToolBar(neuButton, öffnenButton, new Separator(), sichernButton, compileButton, new Separator(),terrainButton, turtleButton, salatButton, mauerButton, deleteButton, new Separator(), turtleSalatButton,
@@ -684,6 +690,9 @@ public class GUI{
 	}
 	public String getCode() {
 		return codeEditor.getText();
+	}
+	public Territorium getTerritorium() {
+		return this.terri1;
 	}
 }
 	

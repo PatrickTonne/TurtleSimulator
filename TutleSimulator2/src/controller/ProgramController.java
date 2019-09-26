@@ -54,6 +54,7 @@ public class ProgramController extends Application {
 		});
 
 		Simulator.start(primaryStage, program);
+		CompilerController.Compile(program, Simulator.getTerritorium());
 
 	}
 
@@ -159,6 +160,8 @@ public class ProgramController extends Application {
 					quitProgram(program, newGui.getCode());
 				});
 				newGui.start(newStage, program);
+				
+				CompilerController.Compile(program, newGui.getTerritorium());
 
 			}
 		}

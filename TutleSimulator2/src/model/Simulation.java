@@ -3,6 +3,7 @@ package model;
 import java.util.Observable;
 import java.util.Observer;
 
+import controller.PlayState;
 import controller.SimulationController;
 
 public class Simulation extends Thread implements Observer{
@@ -12,8 +13,9 @@ public class Simulation extends Thread implements Observer{
 	private boolean pause;
 	Object syncObject;
 
-	public Simulation(Territorium ter) {
+	public Simulation(Territorium ter, SimulationController sim) {
 		territorium = ter;
+		simulationController = sim;
 		
 	}
 	@Override
@@ -22,10 +24,11 @@ public class Simulation extends Thread implements Observer{
 		try {
 			territorium.getTurtle().main();
 			
+			
 		} catch (Exception e) {
 		}finally {
 			territorium.deleteObserver(this);
-		//	simulationController.ended();
+			simulationController.end();
 			
 		}
 		
@@ -35,6 +38,16 @@ public class Simulation extends Thread implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		try {
+			
+			if(simulationController.getPlayState().getState() == 2) {
+				this.wait();
+			}
+			else {
+				Thread.sleep(1000-(simulationController.getSpeed()*10));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 	}}

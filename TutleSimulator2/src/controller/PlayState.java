@@ -8,7 +8,7 @@ public class PlayState {
 	
 	public int playState = NOTRUNNING;
 	
-	public int getPlayState() {
+	public int getState() {
 		return playState;
 	}
 	public void setPlayState(int playState) {

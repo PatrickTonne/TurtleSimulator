@@ -1,9 +1,11 @@
 package view;
+
 import model.*;
 import controller.*;
 import java.util.Observable;
 import java.util.Observer;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
@@ -14,7 +16,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
-public class TerriPanel extends Region implements Observer{
+public class TerriPanel extends Region implements Observer {
 
 	private Canvas canvas1;
 	private Territorium terri1;
@@ -30,9 +32,9 @@ public class TerriPanel extends Region implements Observer{
 	private Image turtleSOUTHImage;
 	private Image turtleWESTImage;
 	private Image salatImage;
-	
+
 	private ChoosenItem choosenItem1;
-	
+
 	private GraphicsContext gc;
 	ScrollPane sp1;
 
@@ -42,7 +44,7 @@ public class TerriPanel extends Region implements Observer{
 
 		terri1 = ter;
 		sp1 = sp;
-		
+
 		this.choosenItem1 = choosenItem;
 
 		this.canvasWidth = ter.YSize * 34 + gap;
@@ -163,15 +165,17 @@ public class TerriPanel extends Region implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
-		this.canvasWidth = terri1.YSize * 34 + gap;
-		this.canvasHeight = terri1.XSize * 34 + gap;
-		
-		gc.clearRect(0, 0, canvas1.getWidth(),canvas1.getHeight());
-		this.canvas1.setWidth(canvasWidth +gap);
-		this.canvas1.setHeight(canvasWidth +gap);
-		
-		drawCanvas(this.gc, terri1);
+		if (Platform.isFxApplicationThread()) {
+			this.canvasWidth = terri1.YSize * 34 + gap;
+			this.canvasHeight = terri1.XSize * 34 + gap;
 
+			gc.clearRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
+			this.canvas1.setWidth(canvasWidth + gap);
+			this.canvas1.setHeight(canvasWidth + gap);
+
+			drawCanvas(this.gc, terri1);
+		} else {
+			drawCanvas(this.gc, terri1);
+		}
 	}
 }
