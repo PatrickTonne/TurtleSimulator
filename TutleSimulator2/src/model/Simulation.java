@@ -9,11 +9,10 @@ import controller.SimulationController;
 public class Simulation extends Thread implements Observer{
 	private Territorium territorium;
 	private SimulationController simulationController;
-	private boolean stop;
-	private boolean pause;
 	Object syncObject;
 
-	public Simulation(Territorium ter, SimulationController sim) {
+	public Simulation(Territorium ter, SimulationController sim, Object obj) {
+		syncObject = obj;
 		territorium = ter;
 		simulationController = sim;
 		
@@ -26,6 +25,7 @@ public class Simulation extends Thread implements Observer{
 			
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 		}finally {
 			territorium.deleteObserver(this);
 			simulationController.end();
@@ -41,13 +41,13 @@ public class Simulation extends Thread implements Observer{
 		try {
 			
 			if(simulationController.getPlayState().getState() == 2) {
-				this.wait();
+				 synchronized(this) { this.wait();}
 			}
 			else {
 				Thread.sleep(1000-(simulationController.getSpeed()*10));
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 	}}

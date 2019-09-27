@@ -175,7 +175,7 @@ public class TerriPanel extends Region implements Observer {
 
 			drawCanvas(this.gc, terri1);
 		} else {
-			drawCanvas(this.gc, terri1);
+			Platform.runLater(() -> drawCanvas(gc, terri1));
 		}
 	}
 }

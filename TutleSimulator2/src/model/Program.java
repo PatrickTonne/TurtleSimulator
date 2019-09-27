@@ -25,14 +25,15 @@ public class Program {
 		createIfNotExists();
 	}
 
+	//Mitschriften Dibos-Vorlesung
 	private void createIfNotExists() throws IOException {
-		Path dirPath = Paths.get(ProgramController.SAVEFOLDER);
+		Path path = Paths.get(ProgramController.SAVEFOLDER);
 		if (Files.notExists(Paths.get(ProgramController.SAVEFOLDER))) {
-			dirPath = Files.createDirectory(dirPath);
+			path = Files.createDirectory(path);
 
-		} else if (!Files.isDirectory(dirPath)) {
+		} else if (!Files.isDirectory(path)) {
 			throw new IOException();
-		} else if (!Files.isWritable(dirPath)) {
+		} else if (!Files.isWritable(path)) {
 			throw new IOException();
 		}
 		Path filePath = Paths.get(ProgramController.SAVEFOLDER, getFileName());

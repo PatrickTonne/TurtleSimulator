@@ -52,6 +52,7 @@ public class GUI{
 	ChoosenItem choosenItem1 = new ChoosenItem();
 	PlayState playState1 = new PlayState();
 	
+	
 	private Button terrainButton;
 	private ToggleButton turtleButton;
 	private ToggleButton salatButton;
@@ -69,6 +70,8 @@ public class GUI{
 	Stage stage;
 	Program program;
 	SimulationController simulationController = new SimulationController(playState1);
+	private MenuItem startItem;
+	private Button playButton;
 	
 	
 	public void start(Stage primaryStage, Program prog) {
@@ -273,7 +276,7 @@ public class GUI{
 	
 		Menu SimulationMenu = new Menu("_Simulation");
 		
-		MenuItem startItem = new MenuItem("_Start/Fortsetzen");
+		startItem = new MenuItem("_Start/Fortsetzen");
 		startItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+F11"));
 		Image startIcon = new Image(getClass().getResourceAsStream("media/Play16.gif"));
 		ImageView startView = new ImageView(startIcon);
@@ -284,6 +287,7 @@ public class GUI{
 			public void handle(ActionEvent event) {
 				simulationController.run(terri1);
 				playState1.setPlayState(0);
+				disableButtons();
 			
 			}
 		});
@@ -538,7 +542,7 @@ public class GUI{
 			}
 		});
 		
-		Button playButton = new Button();
+		playButton = new Button();
 		Image playIcon = new Image(getClass().getResourceAsStream("media/Play24.gif"));
 		ImageView playView = new ImageView(playIcon);
 		playButton.setGraphic(playView);
@@ -549,6 +553,7 @@ public class GUI{
 			public void handle(ActionEvent event) {
 				simulationController.run(terri1);
 				playState1.setPlayState(0);
+				disableButtons();
 				
 			}
 		});
@@ -687,6 +692,14 @@ public class GUI{
 	    Optional<Pair<String, String>> result = dialog.showAndWait();
 
 
+	}
+	public void disableButtons() {
+		System.out.println("disableds");
+		if(playState1.getState() ==0) {
+			startItem.setDisable(true);
+			playButton.setDisable(true);
+			
+		}
 	}
 	public String getCode() {
 		return codeEditor.getText();
