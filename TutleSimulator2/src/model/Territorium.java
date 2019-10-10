@@ -1,6 +1,6 @@
 package model;
 import java.util.Arrays;
-import java.util.Observable;
+import util.Observable;
 import java.lang.System;
 
 public class Territorium extends Observable {
@@ -98,7 +98,7 @@ public class Territorium extends Observable {
 			}
 			break;
 		}
-		setChanged();
+		
 		notifyObservers();
 	}
 
@@ -115,17 +115,25 @@ public class Territorium extends Observable {
 
 // Hilfsmethode: Ist das Feld eine Wand?
 	public boolean isWall(int x, int y) {
-		if (playGround[y][x] == wall) {
-			return true;
-		} else {
+		try {
+			if (playGround[y][x] == wall) {
+				return true;
+			} else {
+				return false;
+			}
+			
+		} catch (Exception e) {
+			
 			return false;
+			
 		}
+
 	}
 
 	public void setTurtlePos(int editXPos, int editYPos) {
 		this.turtleXPos = editXPos;
 		this.turtleYPos = editYPos;
-		setChanged();
+		
 		notifyObservers();
 	}
 
@@ -135,7 +143,7 @@ public class Territorium extends Observable {
 
 	public void setTurtleDirection(int turtleDirection) {
 		this.turtleDirection = turtleDirection;
-		setChanged();
+		
 		notifyObservers();
 	}
 
@@ -149,7 +157,7 @@ public class Territorium extends Observable {
 		} else {
 			this.turtleDirection++;
 		}
-		setChanged();
+		
 		notifyObservers();
 	}
 
@@ -157,7 +165,7 @@ public class Territorium extends Observable {
 		if (isInTerri(x, y) == true && (turtleXPos != x || turtleYPos != y)) {
 			this.playGround[y][x] = wall;
 		}
-		setChanged();
+		
 		notifyObservers();
 	}
 
@@ -169,7 +177,7 @@ public class Territorium extends Observable {
 		} else {
 			playGround[y][x]++;
 		}
-		setChanged();
+		
 		notifyObservers();
 
 	}
@@ -185,7 +193,7 @@ public class Territorium extends Observable {
 			this.turtle.salatCount++;
 			this.playGround[turtleYPos][turtleXPos]--;
 		}
-		setChanged();
+		
 		notifyObservers();
 	}
 
@@ -196,14 +204,14 @@ public class Territorium extends Observable {
 			this.turtle.salatCount--;
 			this.playGround[this.turtleYPos][this.turtleXPos]++;
 		}
-		setChanged();
+		
 		notifyObservers();
 	}
 
 	public void deleteTile(int x, int y) {
 
 		playGround[y][x] = 0;
-		setChanged();
+		
 		notifyObservers();
 	}
 
@@ -228,7 +236,7 @@ public class Territorium extends Observable {
 			setTurtlePos(0, 0);
 		}
 
-		setChanged();
+		
 		notifyObservers();
 	}
 
@@ -238,7 +246,7 @@ public class Territorium extends Observable {
 		} else {
 			throw new OutOfTerritoryException();
 		}
-		setChanged();
+		
 		notifyObservers();
 	}
 

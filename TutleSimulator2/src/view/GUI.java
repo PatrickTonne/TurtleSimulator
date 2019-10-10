@@ -72,6 +72,10 @@ public class GUI{
 	SimulationController simulationController = new SimulationController(playState1);
 	private MenuItem startItem;
 	private Button playButton;
+	private MenuItem pauseItem;
+	private MenuItem stopItem;
+	private Button pauseButton;
+	private Button stopButton;
 	
 	
 	public void start(Stage primaryStage, Program prog) {
@@ -291,7 +295,7 @@ public class GUI{
 			
 			}
 		});
-		MenuItem pauseItem = new MenuItem("_Pause");
+		pauseItem = new MenuItem("_Pause");
 		Image pauseIcon = new Image(getClass().getResourceAsStream("media/Pause16.gif"));
 		ImageView pauseView = new ImageView(pauseIcon);
 		pauseItem.setGraphic(pauseView);
@@ -300,11 +304,12 @@ public class GUI{
 			@Override
 			public void handle(ActionEvent event) {
 				playState1.setPlayState(2);
+				disableButtons();
 				
 			}
 		});
 		
-		MenuItem stopItem = new  MenuItem("_Stopp");
+		stopItem = new  MenuItem("_Stopp");
 		stopItem.setAccelerator(KeyCombination.keyCombination("SHORTCUT+F12"));
 		Image stopIcon = new Image(getClass().getResourceAsStream("media/Stop16.gif"));
 		ImageView stopView = new ImageView(stopIcon);
@@ -315,6 +320,7 @@ public class GUI{
 			public void handle(ActionEvent event) {
 				simulationController.end();
 				playState1.setPlayState(1);
+				disableButtons();
 				
 			}
 		});
@@ -558,7 +564,7 @@ public class GUI{
 			}
 		});
 		
-		Button pauseButton = new Button();
+		pauseButton = new Button();
 		Image pauseIcon = new Image(getClass().getResourceAsStream("media/Pause24.gif"));
 		ImageView pauseView = new ImageView(pauseIcon);
 		pauseButton.setGraphic(pauseView);
@@ -568,11 +574,12 @@ public class GUI{
 			@Override
 			public void handle(ActionEvent event) {
 				playState1.setPlayState(2);
+				disableButtons();
 				
 			}
 		});
 		
-		Button stopButton = new Button();
+		stopButton = new Button();
 		Image stopIcon = new Image(getClass().getResourceAsStream("media/Stop24.gif"));
 		ImageView stopView = new ImageView(stopIcon);
 		stopButton.setGraphic(stopView);
@@ -581,9 +588,9 @@ public class GUI{
 
 			@Override
 			public void handle(ActionEvent event) {
-				simulationController.end();
 				playState1.setPlayState(1);
-				
+				simulationController.end();
+				disableButtons();
 			}
 		});
 		
@@ -694,11 +701,37 @@ public class GUI{
 
 	}
 	public void disableButtons() {
-		System.out.println("disableds");
+		System.out.println("disabled");
 		if(playState1.getState() ==0) {
 			startItem.setDisable(true);
 			playButton.setDisable(true);
 			
+			pauseItem.setDisable(false);
+			pauseButton.setDisable(false);
+			
+			stopItem.setDisable(false);
+			stopButton.setDisable(false);
+		}
+		else if(playState1.getState() ==1) {
+			startItem.setDisable(false);
+			playButton.setDisable(false);
+			
+			pauseItem.setDisable(true);
+			pauseButton.setDisable(true);
+			
+			stopItem.setDisable(true);
+			stopButton.setDisable(true);
+		}
+		else if(playState1.getState() == 2) {
+			System.out.println("muss los");
+			startItem.setDisable(false);
+			playButton.setDisable(false);
+			
+			pauseItem.setDisable(true);
+			pauseButton.setDisable(true);
+			
+			stopItem.setDisable(false);
+			stopButton.setDisable(false);
 		}
 	}
 	public String getCode() {

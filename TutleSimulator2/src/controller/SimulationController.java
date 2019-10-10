@@ -51,8 +51,10 @@ public class SimulationController {
 	}
 
 	public void end() {
-		
+		System.out.println("stop it in");
 		playState.setPlayState(PlayState.NOTRUNNING);
+		simulation.interrupt();
+		
 	}
 
 }

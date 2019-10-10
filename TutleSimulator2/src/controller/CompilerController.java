@@ -50,6 +50,7 @@ public class CompilerController {
 			Turtle turtle = (Turtle) classLoader.loadClass(prog.getProgramName()).newInstance();
 			ter.setTurtle(turtle);
 			
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {

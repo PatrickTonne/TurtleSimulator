@@ -1,9 +1,10 @@
 package view;
 
 import model.*;
+
 import controller.*;
-import java.util.Observable;
-import java.util.Observer;
+import util.Observable;
+import util.Observer;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -12,6 +13,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -33,7 +37,11 @@ public class TerriPanel extends Region implements Observer {
 	private Image turtleWESTImage;
 	private Image salatImage;
 
+	private ContextMenu contextMenu = new ContextMenu();
+
 	private ChoosenItem choosenItem1;
+
+	private MethodArray methodArray;
 
 	private GraphicsContext gc;
 	ScrollPane sp1;
@@ -163,8 +171,20 @@ public class TerriPanel extends Region implements Observer {
 
 	}
 
+	public void showContextMenu(int x, int y) {
+		System.out.println("testtaui");
+		this.methodArray = new MethodArray(terri1.getTurtle());
+		System.out.println(methodArray.list[0].getName());
+		
+		for (int i = 0; i < methodArray.list.length; i++) {
+			contextMenu.getItems().addAll(new MenuItem(methodArray.list[i].getName()));
+		}
+		contextMenu.show(canvas1, x, y);
+	}
+
+
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update() {
 		if (Platform.isFxApplicationThread()) {
 			this.canvasWidth = terri1.YSize * 34 + gap;
 			this.canvasHeight = terri1.XSize * 34 + gap;

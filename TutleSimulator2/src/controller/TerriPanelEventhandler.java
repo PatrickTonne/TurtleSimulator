@@ -1,4 +1,5 @@
 package controller;
+
 import javafx.event.EventHandler;
 import model.*;
 import controller.*;
@@ -31,8 +32,15 @@ public class TerriPanelEventhandler implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent event) {
+		if (event.isSecondaryButtonDown() == true) {
+			int xTile = getNearTile(event.getY());
+			int yTile = getNearTile(event.getX());
+			if (terri1.getTurtleXPos() == xTile && terri1.getTurtleYPos() == yTile) {
+				tp1.showContextMenu(xTile, yTile);
+			}
+		}
 
-		if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
+		else if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
 			int xTile = getNearTile(event.getY());
 			int yTile = getNearTile(event.getX());
 
@@ -70,7 +78,7 @@ public class TerriPanelEventhandler implements EventHandler<MouseEvent> {
 
 		if (event.getEventType().equals(MouseEvent.MOUSE_DRAGGED)) {
 
-			if (tp1.getChoosenItem1().choosenItem == turtleChoosen) {
+			if (tp1.getChoosenItem1().choosenItem == turtleChoosen && !event.isSecondaryButtonDown()) {
 				int xTile = getNearTile(event.getY());
 				int yTile = getNearTile(event.getX());
 
