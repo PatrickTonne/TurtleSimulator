@@ -12,7 +12,7 @@ public class OwnException extends RuntimeException{
 	}
 
 	public void failSound() {
-		URL soundUrl = getClass().getResource("media/deathsound.wav");
+		URL soundUrl = getClass().getResource("sound/deathsound.wav");
 		
 		AudioClip soundAudioClip = new AudioClip(soundUrl.toString());
 		soundAudioClip.play(0.1);

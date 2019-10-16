@@ -99,7 +99,7 @@ public class Territorium extends Observable {
 			}
 			break;
 		}
-		} catch (Exception e) {
+		} catch (OwnException e) {
 			
 		}
 		
@@ -191,11 +191,14 @@ public class Territorium extends Observable {
 	}
 
 	public void turtleTake() throws noSalatOnFieldException {
+		try {
 		if (this.playGround[turtleYPos][turtleXPos] <= 0) {
 			throw new noSalatOnFieldException();
 		} else {
 			this.turtle.salatCount++;
 			this.playGround[turtleYPos][turtleXPos]--;
+		}}
+		catch (OwnException e) {
 		}
 		
 		notifyObservers();
