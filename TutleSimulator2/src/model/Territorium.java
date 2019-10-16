@@ -60,6 +60,7 @@ public class Territorium extends Observable {
 	}
 
 	public void moveTurtle() throws OutOfTerritoryException, WallException {
+		try {
 		switch (this.turtleDirection) {
 		case (north):
 			if (isInTerri(turtleXPos - 1, turtleYPos) == false) {
@@ -97,6 +98,9 @@ public class Territorium extends Observable {
 				this.turtleYPos++;
 			}
 			break;
+		}
+		} catch (Exception e) {
+			
 		}
 		
 		notifyObservers();
@@ -198,11 +202,16 @@ public class Territorium extends Observable {
 	}
 
 	public void turtleDrop() throws noSalatInMouthException {
-		if (this.turtle.salatCount <= 0) {
-			throw new noSalatInMouthException();
-		} else {
-			this.turtle.salatCount--;
-			this.playGround[this.turtleYPos][this.turtleXPos]++;
+		try {
+			if (this.turtle.salatCount <= 0) {
+				throw new noSalatInMouthException();
+			} else {
+				this.turtle.salatCount--;
+				this.playGround[this.turtleYPos][this.turtleXPos]++;
+			}
+			
+		} catch (OwnException e) {
+			// TODO: handle exception
 		}
 		
 		notifyObservers();

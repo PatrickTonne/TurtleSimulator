@@ -16,6 +16,16 @@ import model.Turtle;
 
 public class CompilerController {
 	
+	public static void StartCompile(Program program, Territorium ter) {
+		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+		ByteArrayOutputStream fail = new ByteArrayOutputStream();
+		int result = compiler.run(null, null, fail, program.getFullFileName());
+		if ( result == 0) {
+			loadTurtle(program, ter);
+		}
+		
+	}
+	
 	public static void Compile(Program program, Territorium ter) {
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		ByteArrayOutputStream fail = new ByteArrayOutputStream();

@@ -2,11 +2,16 @@ package view;
 
 import model.*;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
 import controller.*;
 import util.Observable;
 import util.Observer;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
@@ -18,6 +23,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 
 public class TerriPanel extends Region implements Observer {
@@ -172,14 +178,42 @@ public class TerriPanel extends Region implements Observer {
 	}
 
 	public void showContextMenu(int x, int y) {
-		System.out.println("testtaui");
 		this.methodArray = new MethodArray(terri1.getTurtle());
-		System.out.println(methodArray.list[0].getName());
+		ArrayList<Method> methods = methodArray.getMethList();
 		
-		for (int i = 0; i < methodArray.list.length; i++) {
-			contextMenu.getItems().addAll(new MenuItem(methodArray.list[i].getName()));
-		}
-		contextMenu.show(canvas1, x, y);
+		contextMenu.hide();
+		contextMenu = new ContextMenu();
+		
+		// ContextMenu-Handling von: https://o7planning.org/en/11115/javafx-contextmenu-tutorial 
+		this.canvas1.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+			@Override
+			public void handle(ContextMenuEvent event) {
+				for (Method method: methods) {
+					
+					MenuItem item = new MenuItem(method.getReturnType() +" "+method.getName());
+					
+					item.setOnAction(new EventHandler<ActionEvent>() {
+
+						@Override
+						public void handle(ActionEvent event) {
+							try {
+								method.invoke(terri1.getTurtle());
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+							
+						}
+					});
+					contextMenu.getItems().addAll(item);
+				}
+				System.out.println("tzesttaui");
+				contextMenu.show(canvas1,event.getScreenX(), event.getScreenY());
+			}
+			
+			
+		});
+		
 	}
 
 

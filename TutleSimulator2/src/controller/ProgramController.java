@@ -54,7 +54,7 @@ public class ProgramController extends Application {
 		});
 
 		Simulator.start(primaryStage, program);
-		CompilerController.Compile(program, Simulator.getTerritorium());
+		CompilerController.StartCompile(program, Simulator.getTerritorium());
 
 	}
 

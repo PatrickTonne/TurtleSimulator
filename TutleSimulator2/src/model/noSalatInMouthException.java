@@ -1,5 +1,5 @@
 package model;
 
-public class noSalatInMouthException extends RuntimeException{
+public class noSalatInMouthException extends OwnException{
 
 }

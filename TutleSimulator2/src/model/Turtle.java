@@ -12,8 +12,9 @@ public class Turtle {
 	}
 	
 	
-	public void addTerri(Territorium ter) {
+	public boolean addTerri(Territorium ter) {
 		this.territorium = ter;
+		return true;
 		
 	}
 
@@ -34,7 +35,8 @@ public class Turtle {
 	public void drop() {
 		this.territorium.turtleDrop();
 	}
-	public void setTerritorium(Territorium territorium) {
+	public boolean  setTerritorium(Territorium territorium) {
 		this.territorium = territorium;
+		return true;
 	}
 }

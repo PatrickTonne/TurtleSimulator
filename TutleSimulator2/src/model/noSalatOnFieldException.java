@@ -1,5 +1,5 @@
 package model;
 
-public class noSalatOnFieldException extends RuntimeException{
+public class noSalatOnFieldException extends OwnException{
 
 }
