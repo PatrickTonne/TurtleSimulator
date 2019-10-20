@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import model.Turtle;
+import util.Invisible;
 
 public class MethodArray {
 
@@ -27,7 +28,13 @@ public class MethodArray {
 				methList.add(method);
 
 			}
-			list = turtle.getClass().getSuperclass().getDeclaredMethods();
+		}
+
+		list = turtle.getClass().getDeclaredMethods();
+		for (Method method : list) {
+			if(!Modifier.isAbstract(method.getModifiers()) && !Modifier.isStatic(method.getModifiers()) && !Modifier.isPrivate(method.getModifiers()) && (method.getAnnotation(Invisible.class) == null)) {
+				methList.add(method);
+			}
 
 		}
 	}

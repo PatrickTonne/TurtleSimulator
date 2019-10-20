@@ -1,5 +1,6 @@
 package model;
 
+import util.Invisible;
 
 public class Turtle {
 	
@@ -27,7 +28,6 @@ public class Turtle {
 	public void rechtsUm() {
 		this.territorium.turtleRight();
 	}
-
 	public void pick() {
 		this.territorium.turtleTake();
 	}
@@ -39,4 +39,6 @@ public class Turtle {
 		this.territorium = territorium;
 		return true;
 	}
+	
+	
 }

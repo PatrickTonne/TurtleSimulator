@@ -177,22 +177,32 @@ public class TerriPanel extends Region implements Observer {
 
 	}
 
-	public void showContextMenu(int x, int y) {
+	public void showContextMenu() {
 		this.methodArray = new MethodArray(terri1.getTurtle());
 		ArrayList<Method> methods = methodArray.getMethList();
-		
+
 		contextMenu.hide();
 		contextMenu = new ContextMenu();
-		
-		// ContextMenu-Handling von: https://o7planning.org/en/11115/javafx-contextmenu-tutorial 
+
+		// ContextMenu-Handling von:
+		// https://o7planning.org/en/11115/javafx-contextmenu-tutorial
 		this.canvas1.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 
 			@Override
 			public void handle(ContextMenuEvent event) {
-				for (Method method: methods) {
-					
-					MenuItem item = new MenuItem(method.getReturnType() +" "+method.getName());
-					
+				Class<?>[] currentPara;
+				String paraString = "";
+				for (Method method : methods) {
+					if (method.getParameterCount() != 0) {
+						currentPara = method.getParameterTypes();
+						for (int i = 0; i < currentPara.length; i++) {
+							paraString = paraString + " " + currentPara[i].getName();
+						}
+					}
+
+					MenuItem item = new MenuItem(
+							method.getReturnType() + " " + method.getName() + "(" + paraString + ")");
+					paraString = "";
 					item.setOnAction(new EventHandler<ActionEvent>() {
 
 						@Override
@@ -202,20 +212,19 @@ public class TerriPanel extends Region implements Observer {
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
-							
+
 						}
 					});
 					contextMenu.getItems().addAll(item);
 				}
-				System.out.println("tzesttaui");
-				contextMenu.show(canvas1,event.getScreenX(), event.getScreenY());
-			}
-			
-			
-		});
-		
-	}
 
+				System.out.println("tzesttaui");
+				contextMenu.show(canvas1, event.getScreenX(), event.getScreenY());
+			}
+
+		});
+
+	}
 
 	@Override
 	public void update() {

@@ -268,7 +268,6 @@ public class Territorium extends Observable {
 		
 	}
 	public Turtle getTurtle() {
-		
 		return this.turtle;
 	}
 }

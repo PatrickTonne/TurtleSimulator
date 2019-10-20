@@ -103,16 +103,23 @@ public class ProgramController extends Application {
 		dialog.setContentText("Name:");
 
 		Optional<String> result = dialog.showAndWait();
+		// Hilfe von: https://www.rexegg.com/regex-quickstart.html
+		String regex ="([A-Z])([A-Za-z]*)";
 
 		result.ifPresent(name -> {
-			System.out.println("input" + name);
+			if(name.matches(regex)) {
 			try {
 				newProgram(name);
 			} catch (IOException e) {
 				System.out.println(e);
 				e.printStackTrace();
 			}
-
+			} else {
+				Alert errorAlert = new Alert(AlertType.ERROR);
+				errorAlert.setHeaderText("Flasche Eingabe");
+				errorAlert.setContentText("Der eingegebene Wert entspricht nicht der Code-Konvention");
+				errorAlert.showAndWait();
+			}
 		});
 	}
 

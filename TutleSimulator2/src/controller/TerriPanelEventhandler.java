@@ -36,7 +36,7 @@ public class TerriPanelEventhandler implements EventHandler<MouseEvent> {
 			int xTile = getNearTile(event.getY());
 			int yTile = getNearTile(event.getX());
 			if (terri1.getTurtleXPos() == xTile && terri1.getTurtleYPos() == yTile) {
-				tp1.showContextMenu(xTile, yTile);
+				tp1.showContextMenu();
 			}
 		}
 
