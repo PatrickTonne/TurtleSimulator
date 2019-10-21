@@ -1,4 +1,4 @@
-public class DefaultTurtle extends model.Turtle { public 
+public class NeueTurtle extends model.Turtle { public 
 void main(){
 System.out.println("Ausgabe");
 while(true){

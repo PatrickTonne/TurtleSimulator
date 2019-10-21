@@ -202,6 +202,8 @@ public class TerriPanel extends Region implements Observer {
 
 					MenuItem item = new MenuItem(
 							method.getReturnType() + " " + method.getName() + "(" + paraString + ")");
+					
+					if( method.getParameterCount() !=0) { item.setDisable(true);}
 					paraString = "";
 					item.setOnAction(new EventHandler<ActionEvent>() {
 

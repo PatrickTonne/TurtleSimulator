@@ -7,18 +7,16 @@ public class Turtle {
 	int salatCount =0;
 	
 	private Territorium territorium;
-	
+	@util.Invisible
 	public void main() {
 		
 	}
 	
 	
-	public boolean addTerri(Territorium ter) {
+	public void addTerri(Territorium ter) {
 		this.territorium = ter;
-		return true;
-		
 	}
-
+	@Invisible
 	public int getSalatCount() {
 		return salatCount;
 	}
@@ -35,9 +33,9 @@ public class Turtle {
 	public void drop() {
 		this.territorium.turtleDrop();
 	}
-	public boolean  setTerritorium(Territorium territorium) {
+	@Invisible
+	public void setTerritorium(Territorium territorium) {
 		this.territorium = territorium;
-		return true;
 	}
 	
 	
