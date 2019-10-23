@@ -51,27 +51,22 @@ public class TerriPanelEventhandler implements EventHandler<MouseEvent> {
 				case turtleChoosen:
 					if (!(terri1.isWall(xTile, yTile))) {
 						terri1.setTurtlePos(xTile, yTile);
-						System.out.println("turtle");
 					}
 					break;
 
 				case salatChoosen:
 					terri1.setSalat(xTile, yTile);
-					System.out.println("salat");
 					break;
 
 				case wallChoosen:
 					terri1.setWall(xTile, yTile);
-					System.out.println("wall");
 					break;
 
 				case deleteChoosen:
 					terri1.deleteTile(xTile, yTile);
-					System.out.println("delete");
 					break;
 
 				}
-				System.out.println(xTile + "" + yTile);
 
 			}
 		}

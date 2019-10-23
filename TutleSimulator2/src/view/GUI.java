@@ -677,11 +677,6 @@ public class GUI{
 	        	int widthInt = Integer.parseInt(width.getText());
 	        	
 	        	if(heightInt > 4 && heightInt <51 && widthInt >4 && widthInt <51) {
-	            System.out.println("Höhe:" +  heightInt);
-	            System.out.println("Breite:" + widthInt);
-	            
-	            System.out.println("Ergebnis:" + widthInt);
-	            //Resize muss noch überabreitet werden.
 	            
 	            terri1.reSize(widthInt, heightInt);
 	        	}
@@ -701,7 +696,6 @@ public class GUI{
 
 	}
 	public void disableButtons() {
-		System.out.println("disabled");
 		if(playState1.getState() ==0) {
 			startItem.setDisable(true);
 			playButton.setDisable(true);
@@ -723,7 +717,6 @@ public class GUI{
 			stopButton.setDisable(true);
 		}
 		else if(playState1.getState() == 2) {
-			System.out.println("muss los");
 			startItem.setDisable(false);
 			playButton.setDisable(false);
 			

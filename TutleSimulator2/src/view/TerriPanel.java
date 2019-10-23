@@ -219,8 +219,6 @@ public class TerriPanel extends Region implements Observer {
 					});
 					contextMenu.getItems().addAll(item);
 				}
-
-				System.out.println("tzesttaui");
 				contextMenu.show(canvas1, event.getScreenX(), event.getScreenY());
 			}
 
