@@ -4,6 +4,7 @@ import model.Simulation;
 import model.Territorium;
 
 public class SimulationController {
+	//Das Simulationsverfahren ist in Zusammenarbeit mit Time Stein entstanden. Deshalb können hier Überschneidungen auftreten.
 
 	private volatile int speed;
 	private PlayState playState;
@@ -39,22 +40,31 @@ public class SimulationController {
 		simulation.start();
 
 	}
+	@SuppressWarnings("deprecation")
+	public void kill() {
+		simulation.stop();
+	}
 
 	public PlayState getPlayState() {
 		return playState;
 	}
 
 	public void resume() {
-		playState.setPlayState(playState.RUNNING);
-		syncObject.notifyAll();
+		synchronized (simulation) {
+			simulation.setUnPause();
+		}
+		playState.setPlayState(0);
 
+	}
+	public void pause() {
+		synchronized (simulation) {
+			simulation.setPause();
+		}
+		playState.setPlayState(2);
 	}
 
 	public void end() {
-		System.out.println("stop it in");
 		playState.setPlayState(PlayState.NOTRUNNING);
-		simulation.interrupt();
-		
 	}
 
 }

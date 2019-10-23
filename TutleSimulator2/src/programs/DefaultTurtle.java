@@ -1,14 +1,7 @@
-public class DefaultTurtle extends model.Turtle { public 
-void main(){
-System.out.println("Ausgabe");
-while(true){
-vor();
-}
-}
+ import util.Invisible; public class DefaultTurtle extends model.Turtle { public 
+void main() {
+while(true){vor();}
 
-@util.Invisible
-void voran(int anzahl){
-for (int i=0; i<anzahl; i++){
-vor();
 }
-}}
+@Invisible
+public void testaui(){}}

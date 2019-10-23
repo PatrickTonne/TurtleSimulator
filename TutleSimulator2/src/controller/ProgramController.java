@@ -20,6 +20,7 @@ import model.Program;
 import view.*;
 
 public class ProgramController extends Application {
+	//Diese Klasse ist in Zusammenarbeit mit Timo Stein entstanden. Deshalb können hier Überschneidungen auftreten.
 
 	public static final String SAVEFOLDER = "src" + File.separator + "programs";
 	public static final String MAINPROGRAM = System.lineSeparator() + "void main() {" + System.lineSeparator()

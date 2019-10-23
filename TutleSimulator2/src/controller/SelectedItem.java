@@ -1,6 +1,6 @@
 package controller;
 
-public class ChoosenItem {
+public class SelectedItem {
 	
 	public final int turtleChoosen = 0;
 	public final int salatChoosen = 1;

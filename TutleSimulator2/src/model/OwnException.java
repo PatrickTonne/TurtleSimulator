@@ -15,7 +15,7 @@ public class OwnException extends RuntimeException{
 		URL soundUrl = getClass().getResource("sound/deathsound.wav");
 		
 		AudioClip soundAudioClip = new AudioClip(soundUrl.toString());
-		soundAudioClip.play(0.1);
+		soundAudioClip.play();
 	}
 
 }

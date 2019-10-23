@@ -45,14 +45,14 @@ public class TerriPanel extends Region implements Observer {
 
 	private ContextMenu contextMenu = new ContextMenu();
 
-	private ChoosenItem choosenItem1;
+	private SelectedItem choosenItem1;
 
 	private MethodArray methodArray;
 
 	private GraphicsContext gc;
 	ScrollPane sp1;
 
-	public TerriPanel(Territorium ter, ScrollPane sp, ChoosenItem choosenItem) {
+	public TerriPanel(Territorium ter, ScrollPane sp, SelectedItem choosenItem) {
 
 		loadImages();
 
@@ -83,11 +83,11 @@ public class TerriPanel extends Region implements Observer {
 
 	}
 
-	public ChoosenItem getChoosenItem1() {
+	public SelectedItem getChoosenItem1() {
 		return choosenItem1;
 	}
 
-	public void setChoosenItem1(ChoosenItem choosenItem1) {
+	public void setChoosenItem1(SelectedItem choosenItem1) {
 		this.choosenItem1 = choosenItem1;
 	}
 

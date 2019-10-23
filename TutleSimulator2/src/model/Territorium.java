@@ -28,6 +28,10 @@ public class Territorium extends Observable {
 	private int turtleDirection = 1;
 	private int salatCounter = 0;
 	
+	public void setSalatCounter(int salatCounter) {
+		this.salatCounter = salatCounter;
+	}
+
 	public Territorium() {
 		turtle.addTerri(this);
 	}
@@ -195,7 +199,7 @@ public class Territorium extends Observable {
 		if (this.playGround[turtleYPos][turtleXPos] <= 0) {
 			throw new noSalatOnFieldException();
 		} else {
-			this.turtle.salatCount++;
+			this.salatCounter++;
 			this.playGround[turtleYPos][turtleXPos]--;
 		}}
 		catch (OwnException e) {
@@ -206,10 +210,10 @@ public class Territorium extends Observable {
 
 	public void turtleDrop() throws noSalatInMouthException {
 		try {
-			if (this.turtle.salatCount <= 0) {
+			if (this.salatCounter <= 0) {
 				throw new noSalatInMouthException();
 			} else {
-				this.turtle.salatCount--;
+				this.salatCounter--;
 				this.playGround[this.turtleYPos][this.turtleXPos]++;
 			}
 			

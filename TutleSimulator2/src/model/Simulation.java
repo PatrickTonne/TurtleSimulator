@@ -10,6 +10,7 @@ public class Simulation extends Thread implements Observer {
 	private Territorium territorium;
 	private SimulationController simulationController;
 	Object syncObject;
+	boolean pause;
 
 	public Simulation(Territorium ter, SimulationController sim, Object obj) {
 		syncObject = obj;
@@ -37,17 +38,24 @@ public class Simulation extends Thread implements Observer {
 	@Override
 	public void update() {
 		try {
-
-			if (simulationController.getPlayState().getState() == 2) {
 				synchronized (this) {
+					while(pause) {
 					this.wait();
+					}
 				}
-			} else {
 				Thread.sleep(1000 - (simulationController.getSpeed() * 10));
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void setPause() {
+		pause = true;
+	}
+	
+	public void setUnPause() {
+		pause = false;
+		this.notify();
 	}
 }

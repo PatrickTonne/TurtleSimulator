@@ -4,22 +4,17 @@ import util.Invisible;
 
 public class Turtle {
 	
-	int salatCount =0;
 	
 	private Territorium territorium;
-	@util.Invisible
-	public void main() {
+	
+	protected void main() {
 		
 	}
 	
-	
-	public void addTerri(Territorium ter) {
+	protected void addTerri(Territorium ter) {
 		this.territorium = ter;
 	}
-	@Invisible
-	public int getSalatCount() {
-		return salatCount;
-	}
+	
 	public void vor() {
 		this.territorium.moveTurtle();
 	}
@@ -33,8 +28,8 @@ public class Turtle {
 	public void drop() {
 		this.territorium.turtleDrop();
 	}
-	@Invisible
-	public void setTerritorium(Territorium territorium) {
+	
+	protected void setTerritorium(Territorium territorium) {
 		this.territorium = territorium;
 	}
 	

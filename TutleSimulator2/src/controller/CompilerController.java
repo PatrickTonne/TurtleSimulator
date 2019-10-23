@@ -25,7 +25,7 @@ public class CompilerController {
 		}
 		
 	}
-	
+	// Hilfe Compiler benutzen: https://stackoverflow.com/questions/7989135/is-it-possible-to-programmatically-compile-java-source-code-in-memory-only
 	public static void Compile(Program program, Territorium ter) {
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		ByteArrayOutputStream fail = new ByteArrayOutputStream();
@@ -55,8 +55,7 @@ public class CompilerController {
 		URLClassLoader classLoader = null;
 		try {
 			File save = new File(ProgramController.SAVEFOLDER);
-			URL[] url = new URL[] {save.toURI().toURL()	};
-			classLoader = new URLClassLoader(url);
+			classLoader = new URLClassLoader(new URL[] {save.toURI().toURL()});
 			Turtle turtle = (Turtle) classLoader.loadClass(prog.getProgramName()).newInstance();
 			ter.setTurtle(turtle);
 			
@@ -68,7 +67,7 @@ public class CompilerController {
 				try {
 					classLoader.close();
 					
-				} catch (Exception e2) {
+				} catch (Exception e) {
 					// TODO: handle exception
 				}
 			}

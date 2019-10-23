@@ -17,35 +17,26 @@ public class Program {
 
 	public Program() throws IOException {
 		this.setProgramName("DefaultTurtle");
-		createIfNotExists();
+		create();
 	}
 
 	public Program(String name) throws IOException {
 		this.setProgramName(name);
-		createIfNotExists();
+		create();
 	}
 
-	//Mitschriften Dibos-Vorlesung
-	private void createIfNotExists() throws IOException {
+
+	private void create() throws IOException {
 		Path path = Paths.get(ProgramController.SAVEFOLDER);
 		if (Files.notExists(Paths.get(ProgramController.SAVEFOLDER))) {
 			path = Files.createDirectory(path);
-
-		} else if (!Files.isDirectory(path)) {
-			throw new IOException();
-		} else if (!Files.isWritable(path)) {
-			throw new IOException();
 		}
 		Path filePath = Paths.get(ProgramController.SAVEFOLDER, getFileName());
-		if (!Files.exists(filePath)) {
+		if (Files.notExists(filePath)) {
 			String code = getPrefix() + ProgramController.MAINPROGRAM + getSuffix();
 			ArrayList<String> lines = new ArrayList<>();
 			lines.add(code);
 			Files.write(filePath, lines, StandardCharsets.UTF_8);
-		}
-		
-		if (!Files.isWritable(filePath)) {
-			throw new IOException();
 		}
 
 	}
@@ -100,7 +91,7 @@ public class Program {
 	}
 
 	private String getPrefix() {
-		return "public class " + programName + " extends model.Turtle { public ";
+		return " import util.Invisible; public class " + programName + " extends model.Turtle { public ";
 	}
 
 	private String getSuffix() {
