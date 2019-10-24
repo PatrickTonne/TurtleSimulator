@@ -25,6 +25,7 @@ public class Program {
 		create();
 	}
 	
+	//https://docs.oracle.com/javase/tutorial/essential/io/dirs.html
 	private void create() throws IOException {
 		Path path = Paths.get(ProgramController.SAVEFOLDER);
 		if (Files.notExists(Paths.get(ProgramController.SAVEFOLDER))) {
@@ -33,9 +34,9 @@ public class Program {
 		Path filePath = Paths.get(ProgramController.SAVEFOLDER, getFileName());
 		if (Files.notExists(filePath)) {
 			String code = getPrefix() + ProgramController.MAINPROGRAM + getSuffix();
-			ArrayList<String> lines = new ArrayList<>();
-			lines.add(code);
-			Files.write(filePath, lines, StandardCharsets.UTF_8);
+			ArrayList<String> codeLines = new ArrayList<>();
+			codeLines.add(code);
+			Files.write(filePath, codeLines, StandardCharsets.UTF_8);
 		}
 
 	}
@@ -56,6 +57,7 @@ public class Program {
 		this.programName = programName;
 	}
 
+	//https://examples.javacodegeeks.com/core-java/lang/stringbuffer/java-stringbuffer-example/
 	public String getProgram() {
 		try {
 			StringBuffer code = new StringBuffer();
@@ -76,7 +78,6 @@ public class Program {
 	}
 
 	public boolean save(String code) {
-		System.out.println("save");
 		code = getPrefix() + code + getSuffix();
 		ArrayList<String> lines = new ArrayList<String>();
 		lines.add(code);
