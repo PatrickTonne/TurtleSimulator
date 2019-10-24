@@ -20,7 +20,6 @@ public class SimulationController {
 		if (playState.getState() == PlayState.NOTRUNNING) {
 			start(ter);
 		} else if (playState.getState() == PlayState.PAUSED) {
-			System.out.println("RESUME");
 			resume();
 		}
 	}
@@ -30,7 +29,6 @@ public class SimulationController {
 	}
 
 	public void setSpeed(int speed) {
-		System.out.println(speed);
 		this.speed = speed;
 	}
 

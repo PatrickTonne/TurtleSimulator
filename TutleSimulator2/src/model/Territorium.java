@@ -5,8 +5,8 @@ import java.lang.System;
 
 public class Territorium extends Observable {
 	// Größe des Spielfelds
-	final int startCols = 20;
-	final int startRows = 20;
+	final int startCols = 10;
+	final int startRows = 10;
 
 	public int XSize = startCols;
 	public int YSize = startRows;
@@ -113,7 +113,7 @@ public class Territorium extends Observable {
 	// Hilfmethode: Ist das Feld im Territorium?
 
 	private boolean isInTerri(int x, int y) {
-		if (x < 0 || x > this.XSize || y < 0 || y > this.YSize) {
+		if (x < 0 || x > this.XSize -1 || y < 0 || y > this.YSize -1) {
 			return false;
 		} else {
 			return true;

@@ -8,6 +8,7 @@ public class OwnException extends RuntimeException{
 	
 	
 	public OwnException() {
+		System.out.println("ERROR");
 		failSound();
 	}
 

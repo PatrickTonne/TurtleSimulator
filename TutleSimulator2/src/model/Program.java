@@ -24,8 +24,7 @@ public class Program {
 		this.setProgramName(name);
 		create();
 	}
-
-
+	
 	private void create() throws IOException {
 		Path path = Paths.get(ProgramController.SAVEFOLDER);
 		if (Files.notExists(Paths.get(ProgramController.SAVEFOLDER))) {
@@ -97,7 +96,5 @@ public class Program {
 	private String getSuffix() {
 		return "}";
 	}
-	public void test() {
-		System.out.println("Das ist ein Test");
-	}
+	
 }

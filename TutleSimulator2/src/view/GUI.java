@@ -306,8 +306,8 @@ public class GUI {
 			@Override
 			public void handle(ActionEvent event) {
 				playState1.setPlayState(2);
+				simulationController.pause();
 				disableButtons();
-
 			}
 		});
 
@@ -320,8 +320,8 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				simulationController.end();
 				playState1.setPlayState(1);
+				simulationController.kill();
 				disableButtons();
 
 			}

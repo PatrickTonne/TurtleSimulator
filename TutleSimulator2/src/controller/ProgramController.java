@@ -71,7 +71,6 @@ public class ProgramController extends Application {
 
 			stage.setOnCloseRequest(event -> {
 				quitProgram(program, newGui.getCode());
-				System.out.println("Stage is closing");
 			});
 			newGui.start(stage, program);
 
@@ -112,7 +111,6 @@ public class ProgramController extends Application {
 			try {
 				newProgram(name);
 			} catch (IOException e) {
-				System.out.println(e);
 				e.printStackTrace();
 			}
 			} else {

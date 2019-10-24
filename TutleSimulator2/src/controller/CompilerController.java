@@ -30,9 +30,7 @@ public class CompilerController {
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		ByteArrayOutputStream fail = new ByteArrayOutputStream();
 		int result = compiler.run(null, null, fail, program.getFullFileName());
-		System.out.println(result);
 		if (result == 0) {
-			System.out.println("Kein Fehler");
 			Alert alert = new Alert(AlertType.INFORMATION);
 	        alert.setTitle("Compiler");
 	        alert.setHeaderText("Erfolgreich!");
