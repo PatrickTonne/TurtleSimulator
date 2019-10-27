@@ -202,8 +202,10 @@ public class TerriPanel extends Region implements Observer {
 
 					MenuItem item = new MenuItem(
 							method.getReturnType() + " " + method.getName() + "(" + paraString + ")");
-					
-					if( method.getParameterCount() !=0) { item.setDisable(true);}
+
+					if (method.getParameterCount() != 0) {
+						item.setDisable(true);
+					}
 					paraString = "";
 					item.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -219,7 +221,10 @@ public class TerriPanel extends Region implements Observer {
 					});
 					contextMenu.getItems().addAll(item);
 				}
-				contextMenu.show(canvas1, event.getScreenX(), event.getScreenY());
+				if (terri1.getTurtleXPos() == getNearTile(event.getY())
+						&& terri1.getTurtleYPos() == getNearTile(event.getX())) {
+					contextMenu.show(canvas1, event.getScreenX(), event.getScreenY());
+				}
 			}
 
 		});
@@ -240,5 +245,12 @@ public class TerriPanel extends Region implements Observer {
 		} else {
 			Platform.runLater(() -> drawCanvas(gc, terri1));
 		}
+	}
+
+	public int getNearTile(double value) {
+
+		int output = ((int) (value / 34));
+		return output;
+
 	}
 }
