@@ -33,5 +33,16 @@ public class Turtle {
 		this.territorium = territorium;
 	}
 	
+	public boolean salatInMouth() {
+		return territorium.salatInMouth();
+	}
 	
+	public boolean isSalatInTile() {
+		return territorium.isSalatInTile();
+	}
+	
+	public boolean FieldNotOccupied() {
+		System.out.println(territorium.fieldNotOccupied());
+		return territorium.fieldNotOccupied();
+	}
 }

@@ -1,5 +1,10 @@
 package model;
+
 import java.util.Arrays;
+
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
+import sun.nio.cs.ext.ISCII91;
 import util.Observable;
 import java.lang.System;
 
@@ -27,7 +32,7 @@ public class Territorium extends Observable {
 	int turtleYPos = 0;
 	private int turtleDirection = 1;
 	private int salatCounter = 0;
-	
+
 	public void setSalatCounter(int salatCounter) {
 		this.salatCounter = salatCounter;
 	}
@@ -37,7 +42,6 @@ public class Territorium extends Observable {
 	}
 
 	// Ausgewähltes Item in der ToolBar/ MenüBar
-
 
 	public int getXSize() {
 		return XSize;
@@ -65,55 +69,55 @@ public class Territorium extends Observable {
 
 	public void moveTurtle() throws OutOfTerritoryException, WallException {
 		try {
-		switch (this.turtleDirection) {
-		case (north):
-			if (isInTerri(turtleXPos - 1, turtleYPos) == false) {
-				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos - 1, turtleYPos) == true) {
-				throw new WallException();
-			} else {
-				this.turtleXPos--;
+			switch (this.turtleDirection) {
+			case (north):
+				if (isInTerri(turtleXPos - 1, turtleYPos) == false) {
+					throw new OutOfTerritoryException();
+				} else if (isWall(turtleXPos - 1, turtleYPos) == true) {
+					throw new WallException();
+				} else {
+					this.turtleXPos--;
+				}
+				break;
+			case (west):
+				if (isInTerri(turtleXPos, turtleYPos - 1) == false) {
+					throw new OutOfTerritoryException();
+				} else if (isWall(turtleXPos, turtleYPos - 1) == true) {
+					throw new WallException();
+				} else {
+					this.turtleYPos--;
+				}
+				break;
+			case (south):
+				if (isInTerri(turtleXPos + 1, turtleYPos) == false) {
+					throw new OutOfTerritoryException();
+				} else if (isWall(turtleXPos + 1, turtleYPos) == true) {
+					throw new WallException();
+				} else {
+					this.turtleXPos++;
+				}
+				break;
+			case (east):
+				if (isInTerri(turtleXPos, turtleYPos + 1) == false) {
+					throw new OutOfTerritoryException();
+				} else if (isWall(turtleXPos, turtleYPos + 1) == true) {
+					throw new WallException();
+				} else {
+					this.turtleYPos++;
+				}
+				break;
 			}
-			break;
-		case (west):
-			if (isInTerri(turtleXPos, turtleYPos - 1) == false) {
-				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos, turtleYPos - 1) == true) {
-				throw new WallException();
-			} else {
-				this.turtleYPos--;
-			}
-			break;
-		case (south):
-			if (isInTerri(turtleXPos + 1, turtleYPos) == false) {
-				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos + 1, turtleYPos) == true) {
-				throw new WallException();
-			} else {
-				this.turtleXPos++;
-			}
-			break;
-		case (east):
-			if (isInTerri(turtleXPos, turtleYPos + 1) == false) {
-				throw new OutOfTerritoryException();
-			} else if (isWall(turtleXPos, turtleYPos + 1) == true) {
-				throw new WallException();
-			} else {
-				this.turtleYPos++;
-			}
-			break;
-		}
 		} catch (OwnException e) {
-			
+
 		}
-		
+
 		notifyObservers();
 	}
 
 	// Hilfmethode: Ist das Feld im Territorium?
 
 	private boolean isInTerri(int x, int y) {
-		if (x < 0 || x > this.XSize -1 || y < 0 || y > this.YSize -1) {
+		if (x < 0 || x > this.XSize - 1 || y < 0 || y > this.YSize - 1) {
 			return false;
 		} else {
 			return true;
@@ -129,11 +133,11 @@ public class Territorium extends Observable {
 			} else {
 				return false;
 			}
-			
+
 		} catch (Exception e) {
-			
+
 			return false;
-			
+
 		}
 
 	}
@@ -141,7 +145,7 @@ public class Territorium extends Observable {
 	public void setTurtlePos(int editXPos, int editYPos) {
 		this.turtleXPos = editXPos;
 		this.turtleYPos = editYPos;
-		
+
 		notifyObservers();
 	}
 
@@ -151,7 +155,7 @@ public class Territorium extends Observable {
 
 	public void setTurtleDirection(int turtleDirection) {
 		this.turtleDirection = turtleDirection;
-		
+
 		notifyObservers();
 	}
 
@@ -165,7 +169,7 @@ public class Territorium extends Observable {
 		} else {
 			this.turtleDirection++;
 		}
-		
+
 		notifyObservers();
 	}
 
@@ -173,7 +177,7 @@ public class Territorium extends Observable {
 		if (isInTerri(x, y) == true && (turtleXPos != x || turtleYPos != y)) {
 			this.playGround[y][x] = wall;
 		}
-		
+
 		notifyObservers();
 	}
 
@@ -185,7 +189,7 @@ public class Territorium extends Observable {
 		} else {
 			playGround[y][x]++;
 		}
-		
+
 		notifyObservers();
 
 	}
@@ -196,15 +200,15 @@ public class Territorium extends Observable {
 
 	public void turtleTake() throws noSalatOnFieldException {
 		try {
-		if (this.playGround[turtleYPos][turtleXPos] <= 0) {
-			throw new noSalatOnFieldException();
-		} else {
-			this.salatCounter++;
-			this.playGround[turtleYPos][turtleXPos]--;
-		}}
-		catch (OwnException e) {
+			if (this.playGround[turtleYPos][turtleXPos] <= 0) {
+				throw new noSalatOnFieldException();
+			} else {
+				this.salatCounter++;
+				this.playGround[turtleYPos][turtleXPos]--;
+			}
+		} catch (OwnException e) {
 		}
-		
+
 		notifyObservers();
 	}
 
@@ -216,18 +220,18 @@ public class Territorium extends Observable {
 				this.salatCounter--;
 				this.playGround[this.turtleYPos][this.turtleXPos]++;
 			}
-			
+
 		} catch (OwnException e) {
 			// TODO: handle exception
 		}
-		
+
 		notifyObservers();
 	}
 
 	public void deleteTile(int x, int y) {
 
 		playGround[y][x] = 0;
-		
+
 		notifyObservers();
 	}
 
@@ -252,7 +256,6 @@ public class Territorium extends Observable {
 			setTurtlePos(0, 0);
 		}
 
-		
 		notifyObservers();
 	}
 
@@ -262,16 +265,75 @@ public class Territorium extends Observable {
 		} else {
 			throw new OutOfTerritoryException();
 		}
-		
+
 		notifyObservers();
 	}
 
 	public void setTurtle(Turtle turtle) {
 		turtle.setTerritorium(this);
 		this.turtle = turtle;
-		
+
 	}
+
 	public Turtle getTurtle() {
 		return this.turtle;
 	}
+
+	public boolean salatInMouth() {
+
+		if (this.salatCounter > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isSalatInTile() {
+
+		if (playGround[getTurtleYPos()][getTurtleXPos()] == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public boolean fieldNotOccupied() {
+		switch (this.turtleDirection) {
+		case (north):
+			if (isInTerri(turtleXPos - 1, turtleYPos) == false) {
+				return false;
+			} else if (isWall(turtleXPos - 1, turtleYPos) == true) {
+				return false;
+			} else {
+				return true;
+			}
+		case (west):
+			if (isInTerri(turtleXPos, turtleYPos - 1) == false) {
+				return false;
+			} else if (isWall(turtleXPos, turtleYPos - 1) == true) {
+				return false;
+			} else {
+				return true;
+			}
+		case (south):
+			if (isInTerri(turtleXPos + 1, turtleYPos) == false) {
+				return false;
+			} else if (isWall(turtleXPos + 1, turtleYPos) == true) {
+				return false;
+			} else {
+				return true;
+			}
+		case (east):
+			if (isInTerri(turtleXPos, turtleYPos + 1) == false) {
+				return false;
+			} else if (isWall(turtleXPos, turtleYPos + 1) == true) {
+				return false;
+			} else {
+				return true;
+			}
+		default:
+			return false;
+		}
+	}
+
 }
