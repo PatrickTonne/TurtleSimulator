@@ -42,7 +42,6 @@ public class Turtle {
 	}
 	
 	public boolean FieldNotOccupied() {
-		System.out.println(territorium.fieldNotOccupied());
 		return territorium.fieldNotOccupied();
 	}
 }
